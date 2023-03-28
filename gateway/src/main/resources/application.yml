@@ -7,12 +7,12 @@ spring:
         locator:
           enabled: true
       routes:
-        - id: user-service
-          uri: lb://user-service
+        - id: data-to-kafka-service
+          uri: lb://data-to-kafka-service
           predicates:
-            - Path=/user-service/**
+            - Path=/data-to-kafka-service/**
           filters:
-            - RewritePath=/user-service/(?<path>.*), /$\{path}
+            - RewritePath=/data-to-kafka-service/(?<path>.*), /$\{path}
 
 management:
   endpoints:

@@ -35,7 +35,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>user</module>
+        <module>data-to-kafka</module>
         <module>gateway</module>
     </modules>
 
