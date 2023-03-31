@@ -1,6 +1,5 @@
 package wave.pets.data.to.kafka;
 
-import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,10 +20,5 @@ public class KafkaTopicConfig {
         Map<String, Object> configs = new HashMap<>();
         configs.put(BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new KafkaAdmin(configs);
-    }
-
-    @Bean
-    public NewTopic topic1() {
-        return new NewTopic("topic1", 1, (short) 1);
     }
 }

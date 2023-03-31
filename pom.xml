@@ -35,6 +35,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>data-to-cassandra</module>
         <module>data-to-kafka</module>
         <module>gateway</module>
     </modules>
