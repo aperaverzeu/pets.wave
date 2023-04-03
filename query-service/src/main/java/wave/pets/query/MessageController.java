@@ -1,12 +1,15 @@
 package wave.pets.query;
 
+import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,19 +23,21 @@ public class MessageController {
 
     @GetMapping("/latest")
     public ResponseEntity<Message> getLatestMessage() {
-        final var messages = messageRepository.findAll();
-        return ResponseEntity.ok(messages.get(messages.size() - 1));
+        return messageRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingLong(m -> Uuids.unixTimestamp(m.getId())))
+                .reduce((first, second) -> second)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/one/{message}")
-    public ResponseEntity<String> getMessage(@PathVariable String message) {
-        final var result = messageRepository.findAll()
+    @GetMapping("/one/{id}")
+    public ResponseEntity<Message> getMessageById(@PathVariable UUID id) {
+        return messageRepository.findAll()
                 .stream()
-                .map(Message::getMessage)
-                .filter(m -> m.equals(message))
+                .filter(m -> m.getId().equals(id))
                 .findFirst()
-                .orElse("");
-
-        return ResponseEntity.ok(result);
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 }
