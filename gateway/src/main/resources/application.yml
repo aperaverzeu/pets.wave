@@ -13,6 +13,12 @@ spring:
             - Path=/data-to-kafka-service/**
           filters:
             - RewritePath=/data-to-kafka-service/(?<path>.*), /$\{path}
+        - id: query-service
+          uri: lb://query-service
+          predicates:
+            - Path=/query-service/**
+          filters:
+            - RewritePath=/query-service/(?<path>.*), /$\{path}
 
 management:
   endpoints:
