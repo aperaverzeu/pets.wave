@@ -1,4 +1,4 @@
-package wave.pets.query;
+package wave.pets.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Configuration
 @PropertySource(value = {"classpath:application.yml"})
-@EnableCassandraRepositories(basePackages = "wave.pets.query")
+@EnableCassandraRepositories(basePackages = "wave.pets.repository")
 @RequiredArgsConstructor
 public class CassandraConfiguration extends AbstractCassandraConfiguration {
     private final Environment environment;

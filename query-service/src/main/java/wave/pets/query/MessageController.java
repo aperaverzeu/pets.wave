@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import wave.pets.model.Message;
+import wave.pets.repository.MessageRepository;
 
 import java.util.Comparator;
 import java.util.List;

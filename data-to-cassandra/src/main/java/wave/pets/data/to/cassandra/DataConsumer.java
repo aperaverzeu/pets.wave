@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import wave.pets.model.Message;
+import wave.pets.repository.MessageRepository;
 
 @Component
 @RequiredArgsConstructor

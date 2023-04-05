@@ -1,5 +1,6 @@
-package wave.pets.query;
+package wave.pets.repository;
 
+import wave.pets.model.Message;
 import org.springframework.data.cassandra.repository.CassandraRepository;
 import org.springframework.stereotype.Repository;
 
