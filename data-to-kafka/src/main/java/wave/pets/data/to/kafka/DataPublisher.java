@@ -6,6 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import wave.pets.model.MessageRequest;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -16,7 +17,7 @@ public class DataPublisher {
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @PostMapping(path = "/data", consumes = APPLICATION_JSON_VALUE)
-    public void sendMessage(@RequestBody Message message) {
+    public void sendMessage(@RequestBody MessageRequest message) {
         var callback = kafkaTemplate.send("data", message.message());
         callback.whenCompleteAsync((result, ex) -> {
             if (ex == null) {
@@ -26,7 +27,5 @@ public class DataPublisher {
             }
         });
     }
-
-    public record Message(String message) {}
 }
 
