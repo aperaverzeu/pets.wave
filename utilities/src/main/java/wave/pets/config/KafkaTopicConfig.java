@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka;
+package wave.pets.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

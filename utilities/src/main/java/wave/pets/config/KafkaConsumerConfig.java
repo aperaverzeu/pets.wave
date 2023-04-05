@@ -1,4 +1,4 @@
-package wave.pets.data.to.cassandra;
+package wave.pets.config;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.beans.factory.annotation.Value;
