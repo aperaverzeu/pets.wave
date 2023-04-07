@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: data-producer-service
+  cassandra:
+    schema-action: CREATE_IF_NOT_EXISTS
+    request:
+      timeout: 10s
+    connection:
+      connect-timeout: 10s
+      init-query-timeout: 10s
+    local-datacenter: "datacenter1"
+    keyspace-name: "spring_cassandra"
+
+server:
+  port: 8090

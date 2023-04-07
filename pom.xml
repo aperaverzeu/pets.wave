@@ -37,6 +37,7 @@
     </dependencyManagement>
 
     <modules>
+        <module>data-producer</module>
         <module>data-to-cassandra</module>
         <module>data-to-kafka</module>
         <module>gateway</module>
