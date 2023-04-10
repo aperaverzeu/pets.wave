@@ -33,13 +33,14 @@ public class PetProducer {
 
     @GetMapping(value = "/geo/{id}", produces = TEXT_EVENT_STREAM_VALUE)
     public Flux<Message> addPetGeo(@PathVariable UUID id) {
-        Message message = messages.stream()
+        var currentMessages = new ArrayList<>(messages);
+        var message = currentMessages.stream()
                 .filter(m -> m.getId().equals(id))
                 .findFirst()
                 .orElseThrow();
 
         return Flux.interval(ofMillis(1000))
-                .map(i -> new Message(message.getId(), message.getMessage()))
+                .map(i -> message)
                 .doOnNext(m -> log.info("Message {} {}", m.getId(), m.getMessage()));
     }
 
