@@ -35,14 +35,15 @@ services:
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,DOCKER_EXTERNAL://:2182
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,DOCKER_EXTERNAL:PLAINTEXT
       - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092, DOCKER_EXTERNAL://${DOCKER_HOST_IP:-127.0.0.1}:2182
-      - KAFKA_BROKER_ID=1
       - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_BROKER_ID=1
       - ALLOW_PLAINTEXT_LISTENER=yes
       - HOST_HOSTNAME="localhost"
 
   kafka_ui:
     container_name: "kafka_ui"
-    image: "provectuslabs/kafka-ui:v0.6.1"
+    image: "provectuslabs/kafka-ui:v0.6.2"
     restart: on-failure
     volumes:
       - kafka:/bitnami/kafka
@@ -53,6 +54,8 @@ services:
     environment:
       - KAFKA_CLUSTERS_0_NAME=kraft
       - KAFKA_CLUSTERS_0_BOOTSTRAP_SERVERS=kafka:9092
+    depends_on:
+      - kafka
 
   cassandra:
     container_name: "cassandra"
@@ -68,23 +71,18 @@ services:
       - CASSANDRA_CLUSTER_NAME=petswave
 
 
-#  redis:
-#    container_name: "redis"
-#    image: "redis:7.0.8"
-#    restart: always
-#    volumes:
-#      - cache:/data
-#    ports:
-#      - "6379:6379"
-#
-#  redisinsight:
-#    container_name: "redisinsight"
-#    image: "redislabs/redisinsight:1.13.1"
-#    restart: on-failure
-#    volumes:
-#      - cache:/data
-#    ports:
-#      - "8001:8001"
+  postgres:
+    container_name: "postgres"
+    image: "postgres:15.2"
+    restart: on-failure
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=Pa55word
+      - POSTGRES_DB=petswave
 
 volumes:
   consul:
@@ -92,6 +90,8 @@ volumes:
   kafka:
     driver: local
   cassandra_db:
+    driver: local
+  postgres_db:
     driver: local
   cache:
     driver: local
