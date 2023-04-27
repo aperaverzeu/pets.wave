@@ -9,7 +9,7 @@ spring:
       connect-timeout: 10s
       init-query-timeout: 10s
     local-datacenter: "datacenter1"
-    keyspace-name: "spring_cassandra"
+    keyspace-name: "petswave"
 
 server:
   port: 8089
