@@ -1,15 +1,19 @@
 spring:
   application:
     name: query-service
-  cassandra:
-    schema-action: CREATE_IF_NOT_EXISTS
-    request:
-      timeout: 10s
-    connection:
-      connect-timeout: 10s
-      init-query-timeout: 10s
-    local-datacenter: "datacenter1"
-    keyspace-name: "petswave"
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
+  r2dbc:
+    username: user
+    password: Pa55word
+    url: r2dbc:postgresql://localhost:5433/petswave
+    pool:
+      enabled: true
+      initial-size: 10
+      max-idle-time: 1m
+      max-size: 30
 
 server:
   port: 8089

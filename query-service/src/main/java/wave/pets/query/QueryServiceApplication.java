@@ -2,11 +2,10 @@ package wave.pets.query;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-import wave.pets.config.CassandraConfiguration;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication
-@Import(CassandraConfiguration.class)
+@EnableR2dbcRepositories
 public class QueryServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(QueryServiceApplication.class, args);
