@@ -1,6 +1,6 @@
 spring:
   application:
-    name: data-to-cassandra-service
+    name: data-projector-service
   data:
     r2dbc:
       repositories:
