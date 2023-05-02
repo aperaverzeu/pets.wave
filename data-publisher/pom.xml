@@ -10,10 +10,10 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>data-to-kafka</artifactId>
+    <artifactId>data-publisher</artifactId>
 
-    <name>data-to-kafka</name>
-    <description>data-to-kafka</description>
+    <name>data-publisher</name>
+    <description>publish data to kafka and to event store</description>
 
     <properties>
         <kafka.reactor.version>1.3.17</kafka.reactor.version>

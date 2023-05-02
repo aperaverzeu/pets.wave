@@ -1,7 +1,8 @@
-package wave.pets.data.to.kafka.api.event;
+package wave.pets.data.publisher.repository;
 
 import org.springframework.data.cassandra.repository.ReactiveCassandraRepository;
 import org.springframework.stereotype.Repository;
+import wave.pets.data.publisher.model.MessageEvent;
 
 import java.util.UUID;
 

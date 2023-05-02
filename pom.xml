@@ -39,7 +39,7 @@
     <modules>
         <module>data-producer</module>
         <module>data-projector</module>
-        <module>data-to-kafka</module>
+        <module>data-publisher</module>
         <module>gateway</module>
         <module>query-service</module>
     </modules>

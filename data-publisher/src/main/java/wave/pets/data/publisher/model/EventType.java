@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka.api.event;
+package wave.pets.data.publisher.model;
 
 public enum EventType {
     CREATED, UPDATED, DELETED

@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka.api.request;
+package wave.pets.data.publisher.model;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

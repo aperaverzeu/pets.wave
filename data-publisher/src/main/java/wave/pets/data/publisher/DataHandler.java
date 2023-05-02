@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka.api;
+package wave.pets.data.publisher;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import wave.pets.data.to.kafka.api.event.EventType;
-import wave.pets.data.to.kafka.api.event.MessageEvent;
-import wave.pets.data.to.kafka.api.event.MessageEventRepository;
-import wave.pets.data.to.kafka.api.request.MessageRequest;
+import wave.pets.data.publisher.model.MessageEvent;
+import wave.pets.data.publisher.model.MessageRequest;
+import wave.pets.data.publisher.repository.MessageEventRepository;
+import wave.pets.data.publisher.model.EventType;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON;

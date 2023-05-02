@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka;
+package wave.pets.data.publisher;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;

@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka.api.event;
+package wave.pets.data.publisher.model;
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.AllArgsConstructor;

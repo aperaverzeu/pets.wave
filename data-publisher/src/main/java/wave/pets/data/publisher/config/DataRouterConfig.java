@@ -1,4 +1,4 @@
-package wave.pets.data.to.kafka.config;
+package wave.pets.data.publisher.config;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import wave.pets.data.to.kafka.api.DataHandler;
-import wave.pets.data.to.kafka.api.request.MessageRequest;
+import wave.pets.data.publisher.model.MessageRequest;
+import wave.pets.data.publisher.DataHandler;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -22,7 +22,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class DataRouter {
+public class DataRouterConfig {
     @Bean
     @RouterOperations({
             @RouterOperation(
