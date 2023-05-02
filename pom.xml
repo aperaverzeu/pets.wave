@@ -42,7 +42,6 @@
         <module>data-to-kafka</module>
         <module>gateway</module>
         <module>query-service</module>
-        <module>utilities</module>
     </modules>
 
 </project>
