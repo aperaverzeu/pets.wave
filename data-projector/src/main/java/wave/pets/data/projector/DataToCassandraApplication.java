@@ -1,12 +1,11 @@
-package wave.pets.data.to.cassandra;
+package wave.pets.data.projector;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-import wave.pets.config.CassandraConfiguration;
+import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication
-@Import(CassandraConfiguration.class)
+@EnableR2dbcRepositories
 public class DataToCassandraApplication {
     public static void main(String[] args) {
         SpringApplication.run(DataToCassandraApplication.class, args);

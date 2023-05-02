@@ -38,7 +38,7 @@
 
     <modules>
         <module>data-producer</module>
-        <module>data-to-cassandra</module>
+        <module>data-projector</module>
         <module>data-to-kafka</module>
         <module>gateway</module>
         <module>query-service</module>
