@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.config.AbstractReactiveCassandraConfiguration;
 import org.springframework.data.cassandra.repository.config.EnableReactiveCassandraRepositories;
 import org.springframework.lang.NonNull;
-import wave.pets.data.publisher.model.MessageEvent;
+import wave.pets.data.publisher.model.event.MessageEvent;
 
 import java.util.Objects;
 

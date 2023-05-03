@@ -30,3 +30,11 @@ management:
 
 server:
   port: 8087
+
+petswave:
+  kafka:
+    producer:
+      topic:
+        user: user
+        pet: pet
+        collar: collar

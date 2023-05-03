@@ -1,6 +1,5 @@
-package wave.pets.data.publisher.model;
+package wave.pets.data.publisher.model.event.spi;
 
-import com.datastax.oss.driver.api.core.uuid.Uuids;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,12 +17,12 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class Event {
-    // TODO change this to regular UUIDv4
     @PrimaryKey
     @Builder.Default
-    private UUID id = Uuids.timeBased();
+    private UUID id = UUID.randomUUID();
     @Builder.Default
     private LocalDateTime createdAt = LocalDateTime.now();
     private String eventType;
+    private String data;
 }
 

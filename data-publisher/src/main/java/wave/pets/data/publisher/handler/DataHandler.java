@@ -1,4 +1,4 @@
-package wave.pets.data.publisher;
+package wave.pets.data.publisher.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,15 +10,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import wave.pets.data.publisher.model.MessageEvent;
-import wave.pets.data.publisher.model.MessageRequest;
+import wave.pets.data.publisher.model.event.MessageEvent;
+import wave.pets.data.publisher.model.request.MessageRequest;
 import wave.pets.data.publisher.repository.MessageEventRepository;
-import wave.pets.data.publisher.model.EventType;
+import wave.pets.data.publisher.model.event.spi.EventType;
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
-import static org.springframework.web.reactive.function.server.ServerResponse.ok;
 import static org.springframework.web.reactive.function.server.ServerResponse.status;
 
 @Component
@@ -28,11 +27,6 @@ public class DataHandler {
     private final ReactiveKafkaProducerTemplate<String, MessageEvent> reactiveKafkaProducerTemplate;
     private final MessageEventRepository messageEventRepository;
     private final ObjectMapper objectMapper;
-
-    public Mono<ServerResponse> index(ServerRequest request) {
-        return ok().contentType(APPLICATION_JSON)
-                .body(Mono.just(request.path()), String.class);
-    }
 
     public Mono<ServerResponse> publish(ServerRequest request) {
         return request.bodyToMono(MessageRequest.class)
@@ -44,7 +38,6 @@ public class DataHandler {
     }
 
     private void publishToKafka(MessageEvent messageEvent) {
-//        reactiveKafkaProducerTemplate.send("data", messageEvent)
         reactiveKafkaProducerTemplate.send(mapEventToProducerRecord(messageEvent))
                 .doOnNext(r -> logEvent(messageEvent, "sent"))
                 .subscribe();
