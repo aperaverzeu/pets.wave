@@ -6,8 +6,8 @@ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
 
 @SpringBootApplication
 @EnableR2dbcRepositories
-public class DataToCassandraApplication {
+public class DataProjectorApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DataToCassandraApplication.class, args);
+        SpringApplication.run(DataProjectorApplication.class, args);
     }
 }
