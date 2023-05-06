@@ -1,24 +1,18 @@
 package wave.pets.data.publisher.handler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import wave.pets.data.publisher.model.event.MessageEvent;
-import wave.pets.data.publisher.model.request.MessageRequest;
+import wave.pets.data.publisher.model.mapper.MessageMapper;
 import wave.pets.data.publisher.repository.MessageEventRepository;
-import wave.pets.data.publisher.model.event.spi.EventType;
+import wave.pets.utilities.event.MessageEvent;
+import wave.pets.utilities.request.MessageRequest;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.web.reactive.function.server.ServerResponse.notFound;
-import static org.springframework.web.reactive.function.server.ServerResponse.status;
 
 @Component
 @RequiredArgsConstructor
@@ -26,55 +20,23 @@ import static org.springframework.web.reactive.function.server.ServerResponse.st
 public class DataHandler {
     private final ReactiveKafkaProducerTemplate<String, MessageEvent> reactiveKafkaProducerTemplate;
     private final MessageEventRepository messageEventRepository;
-    private final ObjectMapper objectMapper;
+    private final MessageMapper messageMapper;
 
     public Mono<ServerResponse> publish(ServerRequest request) {
         return request.bodyToMono(MessageRequest.class)
-                .flatMap(this::mapRequestToEvent)
+                .flatMap(messageMapper::mapRequestToEvent)
                 .doOnNext(this::publishToKafka)
                 .doOnNext(this::publishToEventStore)
-                .flatMap(this::mapEventToResponse)
+                .flatMap(messageMapper::mapEventToResponse)
                 .switchIfEmpty(notFound().build());
     }
 
     private void publishToKafka(MessageEvent messageEvent) {
-        reactiveKafkaProducerTemplate.send(mapEventToProducerRecord(messageEvent))
-                .doOnNext(r -> logEvent(messageEvent, "sent"))
-                .subscribe();
+        reactiveKafkaProducerTemplate.send(messageMapper.mapEventToProducerRecord(messageEvent)).subscribe();
     }
 
     private void publishToEventStore(MessageEvent messageEvent) {
-        messageEventRepository.save(messageEvent)
-                .doOnNext(r -> logEvent(r, "event created"))
+        messageEventRepository.save(messageMapper.mapEventToEntity(messageEvent))
                 .subscribe();
-    }
-
-    private Mono<MessageEvent> mapRequestToEvent(MessageRequest messageRequest) {
-        return Mono.just(MessageEvent.builder()
-                .eventType(EventType.CREATED.name())
-                .data(mapObjectToJsonString(messageRequest))
-                .build());
-    }
-
-    private String mapObjectToJsonString(Object request) {
-        try {
-            return objectMapper.writeValueAsString(request);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private ProducerRecord<String, MessageEvent> mapEventToProducerRecord(MessageEvent messageEvent) {
-        return new ProducerRecord<>("data", "ms", messageEvent);
-    }
-
-    private Mono<ServerResponse> mapEventToResponse(MessageEvent messageEvent) {
-        return status(CREATED)
-                .contentType(APPLICATION_JSON)
-                .body(Mono.just(messageEvent.getData()), String.class);
-    }
-
-    private void logEvent(MessageEvent messageEvent, String text) {
-        log.info(text + " {} {} {}", messageEvent.getId(), messageEvent.getEventType(), messageEvent.getData());
     }
 }

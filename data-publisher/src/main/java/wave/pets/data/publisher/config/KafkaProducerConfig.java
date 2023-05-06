@@ -5,10 +5,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
 import reactor.kafka.sender.SenderOptions;
-import wave.pets.data.publisher.model.event.CollarEvent;
-import wave.pets.data.publisher.model.event.MessageEvent;
-import wave.pets.data.publisher.model.event.PetEvent;
-import wave.pets.data.publisher.model.event.UserEvent;
+import wave.pets.utilities.event.CollarEvent;
+import wave.pets.utilities.event.MessageEvent;
+import wave.pets.utilities.event.PetEvent;
+import wave.pets.utilities.event.UserEvent;
 
 import java.util.Map;
 
