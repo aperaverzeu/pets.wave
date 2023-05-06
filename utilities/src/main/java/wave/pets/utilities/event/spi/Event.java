@@ -1,4 +1,4 @@
-package wave.pets.data.publisher.model.event.spi;
+package wave.pets.utilities.event.spi;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -17,7 +16,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class Event {
-    @PrimaryKey
     @Builder.Default
     private UUID id = UUID.randomUUID();
     @Builder.Default

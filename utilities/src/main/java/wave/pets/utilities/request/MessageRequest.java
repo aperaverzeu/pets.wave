@@ -1,12 +1,12 @@
-package wave.pets.data.publisher.model.request;
+package wave.pets.utilities.request;
 
-import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
+import lombok.Data;
 import lombok.extern.jackson.Jacksonized;
 
 @Builder
+@Data
 @Jacksonized
 public class MessageRequest {
-    @NotBlank(message = "The message is mandatory")
     private String message;
 }

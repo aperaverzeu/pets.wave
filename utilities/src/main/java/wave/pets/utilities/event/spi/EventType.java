@@ -1,4 +1,4 @@
-package wave.pets.data.publisher.model.event.spi;
+package wave.pets.utilities.event.spi;
 
 public enum EventType {
     CREATED, UPDATED, DELETED

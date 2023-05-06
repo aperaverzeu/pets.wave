@@ -42,6 +42,7 @@
         <module>data-publisher</module>
         <module>gateway</module>
         <module>query-service</module>
+        <module>utilities</module>
     </modules>
 
 </project>
