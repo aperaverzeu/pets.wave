@@ -17,6 +17,7 @@ import wave.pets.utilities.event.MessageEvent;
 import wave.pets.utilities.request.MessageRequest;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -46,16 +47,17 @@ public class DataConsumer {
     }
 
     private void create(MessageEntity messageEntity) {
-        messageRepository.save(messageEntity).subscribe();
+        messageRepository.save(messageEntity.setAsNew()).subscribe();
     }
 
     private void update(MessageEntity messageEntity) {
         messageRepository.findById(Objects.requireNonNull(messageEntity.getId()))
-                .flatMap((mes) -> {
-                    mes.setId(messageEntity.getId());
+                .flatMap(mes -> {
                     mes.setMessage(messageEntity.getMessage());
                     return messageRepository.save(mes);
-                }).subscribe();
+                })
+                .switchIfEmpty(messageRepository.save(messageEntity.setAsNew()))
+                .subscribe();
     }
 
     private void delete(MessageEntity messageEntity) {
@@ -71,6 +73,7 @@ public class DataConsumer {
         }
 
         return MessageEntity.builder()
+                .id(UUID.randomUUID())
                 .message(messageRequest.getMessage())
                 .build();
     }

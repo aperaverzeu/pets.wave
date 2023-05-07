@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Objects;
 import java.util.UUID;
 
 @Builder
@@ -16,16 +17,23 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table("message")
 public class MessageEntity implements Persistable<UUID> {
     @Id
-    @Builder.Default
-    private UUID id = UUID.randomUUID();
+    private UUID id;
     private String message;
 
+    @Transient
+    private boolean newMessageEntity;
+
     @Override
+    @Transient
     public boolean isNew() {
-        boolean result = Objects.isNull(id);
-        this.id = result ? UUID.randomUUID() : this.id;
-        return result;
+        return this.newMessageEntity || id == null;
+    }
+
+    public MessageEntity setAsNew() {
+        this.newMessageEntity = true;
+        return this;
     }
 }

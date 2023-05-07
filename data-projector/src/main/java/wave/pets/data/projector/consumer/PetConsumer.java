@@ -46,13 +46,12 @@ public class PetConsumer {
     }
 
     private void create(PetEntity petEntity) {
-        petRepository.save(petEntity).subscribe();
+        petRepository.save(petEntity.setAsNew()).subscribe();
     }
 
     private void update(PetEntity petEntity) {
         petRepository.findById(Objects.requireNonNull(petEntity.getId()))
-                .flatMap((pet) -> {
-                    pet.setId(petEntity.getId());
+                .flatMap(pet -> {
                     pet.setName(petEntity.getName());
                     pet.setWeight(petEntity.getWeight());
                     pet.setHeight(petEntity.getHeight());
@@ -60,7 +59,9 @@ public class PetConsumer {
                     pet.setPetType(petEntity.getPetType());
                     pet.setUserId(petEntity.getUserId());
                     return petRepository.save(pet);
-                }).subscribe();
+                })
+                .switchIfEmpty(petRepository.save(petEntity.setAsNew()))
+                .subscribe();
     }
 
     private void delete(PetEntity petEntity) {

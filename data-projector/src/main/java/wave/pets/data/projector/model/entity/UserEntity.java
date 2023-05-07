@@ -6,9 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table("user")
 public class UserEntity implements Persistable<UUID> {
     @Id
     @Builder.Default
@@ -26,10 +28,17 @@ public class UserEntity implements Persistable<UUID> {
     private String password;
     private Set<UUID> petsId;
 
+    @Transient
+    private boolean newUser;
+
     @Override
+    @Transient
     public boolean isNew() {
-        boolean result = Objects.isNull(id);
-        this.id = result ? UUID.randomUUID() : this.id;
-        return result;
+        return this.newUser || this.id == null;
+    }
+
+    public UserEntity setAsNew() {
+        this.newUser = true;
+        return this;
     }
 }

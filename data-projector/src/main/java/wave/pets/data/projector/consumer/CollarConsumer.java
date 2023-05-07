@@ -44,17 +44,18 @@ public class CollarConsumer {
     }
 
     private void create(CollarEntity collarEntity) {
-        collarRepository.save(collarEntity).subscribe();
+        collarRepository.save(collarEntity.setAsNew()).subscribe();
     }
 
     private void update(CollarEntity collarEntity) {
         collarRepository.findById(Objects.requireNonNull(collarEntity.getId()))
                 .flatMap((collar) -> {
-                    collar.setId(collarEntity.getId());
                     collar.setModel(collarEntity.getModel());
                     collar.setPetId(collarEntity.getPetId());
                     return collarRepository.save(collar);
-                }).subscribe();
+                })
+                .switchIfEmpty(collarRepository.save(collarEntity.setAsNew()))
+                .subscribe();
     }
 
     private void delete(CollarEntity collarEntity) {

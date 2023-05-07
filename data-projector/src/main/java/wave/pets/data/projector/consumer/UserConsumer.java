@@ -47,19 +47,20 @@ public class UserConsumer {
     }
 
     private void create(UserEntity userEntity) {
-        userRepository.save(userEntity).subscribe();
+        userRepository.save(userEntity.setAsNew()).subscribe();
     }
 
     private void update(UserEntity userEntity) {
         userRepository.findById(Objects.requireNonNull(userEntity.getId()))
-                .flatMap((usr) -> {
-                    usr.setId(userEntity.getId());
+                .flatMap(usr -> {
                     usr.setName(userEntity.getName());
                     usr.setUsername(userEntity.getUsername());
                     usr.setPassword(userEntity.getPassword());
                     usr.setPetsId(userEntity.getPetsId());
                     return userRepository.save(usr);
-                }).subscribe();
+                })
+                .switchIfEmpty(userRepository.save(userEntity.setAsNew()))
+                .subscribe();
     }
 
     private void delete(UserEntity userEntity) {
