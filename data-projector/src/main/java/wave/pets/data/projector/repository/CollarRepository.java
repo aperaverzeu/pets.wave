@@ -6,14 +6,14 @@ import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
-import wave.pets.data.projector.model.entity.MessageEntity;
+import wave.pets.data.projector.model.entity.CollarEntity;
 
 import java.util.UUID;
 
 @Repository
-public interface MessageRepository extends R2dbcRepository<MessageEntity, UUID> {
+public interface CollarRepository extends R2dbcRepository<CollarEntity, UUID> {
     @Modifying
-    @Query("insert into message (id, message) values (:#{#messageEntity.id}, :#{#messageEntity.message})")
+    @Query("insert into collar (id, model, petId) values (:#{#collarEntity.id}, :#{#collarEntity.model}, :#{#collarEntity.petId})")
     @NonNull
-    Mono<MessageEntity> save(@NonNull final MessageEntity messageEntity);
+    Mono<CollarEntity> save(@NonNull final CollarEntity collarEntity);
 }

@@ -6,14 +6,14 @@ import org.springframework.data.r2dbc.repository.R2dbcRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
-import wave.pets.data.projector.model.entity.MessageEntity;
+import wave.pets.data.projector.model.entity.UserEntity;
 
 import java.util.UUID;
 
 @Repository
-public interface MessageRepository extends R2dbcRepository<MessageEntity, UUID> {
+public interface UserRepository extends R2dbcRepository<UserEntity, UUID> {
     @Modifying
-    @Query("insert into message (id, message) values (:#{#messageEntity.id}, :#{#messageEntity.message})")
+    @Query("insert into user (id, name, username, password, petIds) values (:#{#petEntity.id}, :#{#petEntity.name}, :#{#petEntity.username}, :#{#petEntity.password}, :#{#petEntity.petIds})")
     @NonNull
-    Mono<MessageEntity> save(@NonNull final MessageEntity messageEntity);
+    Mono<UserEntity> save(@NonNull final UserEntity userEntity);
 }
