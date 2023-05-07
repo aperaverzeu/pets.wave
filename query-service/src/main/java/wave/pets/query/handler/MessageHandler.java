@@ -1,4 +1,4 @@
-package wave.pets.query;
+package wave.pets.query.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
+import wave.pets.query.model.Message;
+import wave.pets.query.repository.MessageRepository;
 
 import java.util.UUID;
 

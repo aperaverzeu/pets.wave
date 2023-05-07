@@ -1,4 +1,4 @@
-package wave.pets.query;
+package wave.pets.query.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
