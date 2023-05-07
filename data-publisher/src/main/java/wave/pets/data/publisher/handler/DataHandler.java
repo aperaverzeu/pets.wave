@@ -2,6 +2,7 @@ package wave.pets.data.publisher.handler;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.reactive.ReactiveKafkaProducerTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -18,6 +19,10 @@ import static org.springframework.web.reactive.function.server.ServerResponse.no
 @RequiredArgsConstructor
 @Slf4j
 public class DataHandler {
+    @Value("${petswave.kafka.producer.message.topic}")
+    private String topic;
+    @Value("${petswave.kafka.producer.message.key}")
+    private String key;
     private final ReactiveKafkaProducerTemplate<String, MessageEvent> reactiveKafkaProducerTemplate;
     private final MessageEventRepository messageEventRepository;
     private final MessageMapper messageMapper;
@@ -32,7 +37,7 @@ public class DataHandler {
     }
 
     private void publishToKafka(MessageEvent messageEvent) {
-        reactiveKafkaProducerTemplate.send(messageMapper.mapEventToProducerRecord(messageEvent)).subscribe();
+        reactiveKafkaProducerTemplate.send(messageMapper.mapEventToProducerRecord(messageEvent, topic, key)).subscribe();
     }
 
     private void publishToEventStore(MessageEvent messageEvent) {

@@ -28,8 +28,10 @@ public class UserMapper {
                 .build());
     }
 
-    public ProducerRecord<String, UserEvent> mapEventToProducerRecord(UserEvent userEvent, String topic) {
-        return new ProducerRecord<>(topic, userEvent);
+    public ProducerRecord<String, UserEvent> mapEventToProducerRecord(UserEvent userEvent,
+                                                                      String topic,
+                                                                      String key) {
+        return new ProducerRecord<>(topic, key, userEvent);
     }
 
     public UserEventEntity mapEventToEntity(UserEvent userEvent) {

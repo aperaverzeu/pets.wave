@@ -36,8 +36,10 @@ public class CollarMapper {
                 .build();
     }
 
-    public ProducerRecord<String, CollarEvent> mapEventToProducerRecord(CollarEvent collarEvent, String topic) {
-        return new ProducerRecord<>(topic, collarEvent);
+    public ProducerRecord<String, CollarEvent> mapEventToProducerRecord(CollarEvent collarEvent,
+                                                                        String topic,
+                                                                        String key) {
+        return new ProducerRecord<>(topic, key, collarEvent);
     }
 
     public Mono<ServerResponse> mapEventToResponse(CollarEvent collarEvent) {

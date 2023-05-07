@@ -28,8 +28,10 @@ public class MessageMapper {
                 .build());
     }
 
-    public ProducerRecord<String, MessageEvent> mapEventToProducerRecord(MessageEvent messageEvent) {
-        return new ProducerRecord<>("data", "ms", messageEvent);
+    public ProducerRecord<String, MessageEvent> mapEventToProducerRecord(MessageEvent messageEvent,
+                                                                         String topic,
+                                                                         String key) {
+        return new ProducerRecord<>(topic, key, messageEvent);
     }
 
     public MessageEventEntity mapEventToEntity(MessageEvent messageEvent) {

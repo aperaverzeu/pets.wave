@@ -34,7 +34,15 @@ server:
 petswave:
   kafka:
     producer:
-      topic:
-        user: user
-        pet: pet
-        collar: collar
+      user:
+        topic: user
+        key: usr
+      pet:
+        topic: pet
+        key: pt
+      collar:
+        topic: collar
+        key: cl
+      message:
+        topic: data
+        key: ms

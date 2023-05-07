@@ -23,8 +23,10 @@ import static wave.pets.utilities.event.spi.EventType.UPDATED;
 @RequiredArgsConstructor
 @Slf4j
 public class CollarHandler {
-    @Value("${petswave.kafka.producer.topic.collar}")
+    @Value("${petswave.kafka.producer.collar.topic}")
     private String topic;
+    @Value("${petswave.kafka.producer.collar.key}")
+    private String key;
     private final ReactiveKafkaProducerTemplate<String, CollarEvent> reactiveKafkaProducerTemplate;
     private final CollarEventRepository collarEventRepository;
     private final CollarMapper collarMapper;
@@ -51,7 +53,7 @@ public class CollarHandler {
     }
 
     private void publishToKafka(CollarEvent collarEvent) {
-        reactiveKafkaProducerTemplate.send(collarMapper.mapEventToProducerRecord(collarEvent, topic))
+        reactiveKafkaProducerTemplate.send(collarMapper.mapEventToProducerRecord(collarEvent, topic, key))
                 .subscribe();
     }
 

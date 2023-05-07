@@ -28,8 +28,10 @@ public class PetMapper {
                 .build());
     }
 
-    public ProducerRecord<String, PetEvent> mapEventToProducerRecord(PetEvent petEvent, String topic) {
-        return new ProducerRecord<>(topic, petEvent);
+    public ProducerRecord<String, PetEvent> mapEventToProducerRecord(PetEvent petEvent,
+                                                                     String topic,
+                                                                     String key) {
+        return new ProducerRecord<>(topic, key, petEvent);
     }
 
     public PetEventEntity mapEventToEntity(PetEvent petEvent) {

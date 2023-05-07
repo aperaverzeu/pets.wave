@@ -23,8 +23,10 @@ import static wave.pets.utilities.event.spi.EventType.UPDATED;
 @RequiredArgsConstructor
 @Slf4j
 public class PetHandler {
-    @Value("${petswave.kafka.producer.topic.pet}")
+    @Value("${petswave.kafka.producer.pet.topic}")
     private String topic;
+    @Value("${petswave.kafka.producer.pet.key}")
+    private String key;
     private final ReactiveKafkaProducerTemplate<String, PetEvent> reactiveKafkaProducerTemplate;
     private final PetEventRepository petEventRepository;
     private final PetMapper petMapper;
@@ -51,7 +53,7 @@ public class PetHandler {
     }
 
     private void publishToKafka(PetEvent petEvent) {
-        reactiveKafkaProducerTemplate.send(petMapper.mapEventToProducerRecord(petEvent, topic))
+        reactiveKafkaProducerTemplate.send(petMapper.mapEventToProducerRecord(petEvent, topic, key))
                 .subscribe();
     }
 
