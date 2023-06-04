@@ -5,6 +5,11 @@ import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.ConnectionFactoryOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.r2dbc.connection.R2dbcTransactionManager;
+import org.springframework.r2dbc.core.DatabaseClient;
+import org.springframework.transaction.ReactiveTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.reactive.TransactionalOperator;
 
 import java.time.Duration;
 
@@ -19,6 +24,7 @@ import static io.r2dbc.spi.ConnectionFactoryOptions.USER;
 import static io.r2dbc.spi.ConnectionFactoryOptions.PASSWORD;
 
 @Configuration
+@EnableTransactionManagement
 public class R2dbcConfig {
     @Bean
     ConnectionFactory connectionFactory() {
@@ -34,5 +40,20 @@ public class R2dbcConfig {
                         .option(MAX_IDLE_TIME, Duration.ofMinutes(1L))
                         .option(MAX_SIZE, 30)
                         .build());
+    }
+
+    @Bean
+    DatabaseClient databaseClient(ConnectionFactory connectionFactory) {
+        return DatabaseClient.create(connectionFactory);
+    }
+
+    @Bean
+    ReactiveTransactionManager transactionManager(ConnectionFactory connectionFactory) {
+        return new R2dbcTransactionManager(connectionFactory);
+    }
+
+    @Bean
+    TransactionalOperator transactionalOperator(ReactiveTransactionManager transactionManager) {
+        return TransactionalOperator.create(transactionManager);
     }
 }

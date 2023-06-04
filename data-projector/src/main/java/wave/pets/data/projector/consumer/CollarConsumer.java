@@ -7,18 +7,20 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import reactor.core.Disposable;
+import reactor.core.publisher.Mono;
 import reactor.kafka.receiver.KafkaReceiver;
-import wave.pets.data.projector.model.entity.CollarEntity;
-import wave.pets.data.projector.model.mapper.CollarMapper;
+import wave.pets.data.projector.consumer.spi.Consumer;
+import wave.pets.utilities.entity.CollarEntity;
+import wave.pets.data.projector.consumer.mapper.CollarMapper;
 import wave.pets.data.projector.repository.CollarRepository;
 import wave.pets.utilities.event.CollarEvent;
 
-import java.util.Objects;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class CollarConsumer {
+public class CollarConsumer extends Consumer<CollarEntity, CollarEvent> {
     private final KafkaReceiver<String, CollarEvent> collarEventKafkaReceiver;
     private final CollarMapper collarMapper;
     private final CollarRepository collarRepository;
@@ -33,41 +35,29 @@ public class CollarConsumer {
                 .subscribe();
     }
 
-    private void publishToDataStore(CollarEvent collarEvent) {
-        var messageEntity = collarMapper.apply(collarEvent);
+    @Override
+    protected void publishToDataStore(CollarEvent collarEvent) {
+        var messageEntity = collarMapper.mapEventToEntity(collarEvent);
         switch (collarEvent.getEventType()) {
-            case "CREATED" -> create(messageEntity);
-            case "UPDATED" -> update(messageEntity);
-            case "DELETED" -> delete(messageEntity);
+            case "CREATED" -> create(messageEntity).subscribe();
+            case "UPDATED" -> update(messageEntity).subscribe();
+            case "DELETED" -> delete(messageEntity).subscribe();
             default -> log.error("throws!");
         }
     }
 
-    private void create(CollarEntity collarEntity) {
-        collarRepository.save(collarEntity.setAsNew()).subscribe();
+    @Override
+    protected Mono<UUID> create(CollarEntity entity) {
+        return collarRepository.save(entity);
     }
 
-    private void update(CollarEntity collarEntity) {
-        collarRepository.findById(Objects.requireNonNull(collarEntity.getId()))
-                .flatMap((collar) -> {
-                    collar.setModel(collarEntity.getModel());
-                    collar.setPetId(collarEntity.getPetId());
-                    return collarRepository.save(collar);
-                })
-                .switchIfEmpty(collarRepository.save(collarEntity.setAsNew()))
-                .subscribe();
+    @Override
+    protected Mono<Long> update(CollarEntity entity) {
+        return collarRepository.update(entity);
     }
 
-    private void delete(CollarEntity collarEntity) {
-        collarRepository.delete(collarEntity).subscribe();
-    }
-
-
-    private void logConsumerRecord(ConsumerRecord<String, CollarEvent> consumerRecord) {
-        log.info("received key={}, value={} from topic={}, offset={}",
-                consumerRecord.key(),
-                consumerRecord.value(),
-                consumerRecord.topic(),
-                consumerRecord.offset());
+    @Override
+    protected Mono<Long> delete(CollarEntity entity) {
+        return collarRepository.delete(entity);
     }
 }
