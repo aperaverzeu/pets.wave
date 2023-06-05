@@ -2,12 +2,11 @@ package wave.pets.query.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
-import wave.pets.query.model.Message;
-import wave.pets.query.repository.MessageRepository;
+import wave.pets.query.repository.UserRepository;
+import wave.pets.utilities.entity.UserEntity;
 
 import java.util.UUID;
 
@@ -17,21 +16,21 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 @Component
 @RequiredArgsConstructor
-public class MessageHandler {
-    private final MessageRepository messageRepository;
+public class UserHandler {
+    private final UserRepository userRepository;
 
-    public Mono<ServerResponse> getAllMessages() {
+    @SuppressWarnings("unused parameter")
+    public Mono<ServerResponse> getAll(ServerRequest request) {
         return ok()
                 .contentType(APPLICATION_JSON)
-                .body(messageRepository.findAll(), Message.class)
+                .body(userRepository.findAll(), UserEntity.class)
                 .switchIfEmpty(notFound().build());
     }
 
-    @GetMapping("/one/{id}")
-    public Mono<ServerResponse> getMessageById(@PathVariable String id) {
+    public Mono<ServerResponse> getUserById(ServerRequest request) {
         return ok()
                 .contentType(APPLICATION_JSON)
-                .body(messageRepository.findById(UUID.fromString(id)), Message.class)
+                .body(userRepository.findById(UUID.fromString(request.pathVariable("id"))), UserEntity.class)
                 .switchIfEmpty(notFound().build());
     }
 }
