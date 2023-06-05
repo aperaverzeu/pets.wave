@@ -3,6 +3,12 @@ spring:
     name: gateway-service
   cloud:
     gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       discovery:
         locator:
           enabled: true
@@ -19,6 +25,10 @@ spring:
             - Path=/query-service/**
           filters:
             - RewritePath=/query-service/(?<path>.*), /$\{path}
+        - id: angular
+          uri: http://localhost:4200/
+          predicates:
+            - Path=/**
 
 management:
   endpoints:
