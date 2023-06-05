@@ -17,4 +17,5 @@ public class PetRequest {
     private String age;
     private String petType;
     private UUID userId;
+    private UUID collarId;
 }
