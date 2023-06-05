@@ -29,6 +29,7 @@ public class PetMapper {
                 .age(petRequest.getAge())
                 .petType(petRequest.getPetType())
                 .userId(petRequest.getUserId())
+                .collarId(petRequest.getCollarId())
                 .build();
     }
 }

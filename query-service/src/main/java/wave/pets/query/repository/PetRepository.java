@@ -3,6 +3,7 @@ package wave.pets.query.repository;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
@@ -10,6 +11,7 @@ import reactor.core.publisher.Mono;
 import wave.pets.query.repository.spi.Repository;
 import wave.pets.utilities.entity.PetEntity;
 
+import java.time.Duration;
 import java.util.UUID;
 import java.util.function.BiFunction;
 
@@ -27,6 +29,7 @@ public class PetRepository implements Repository<PetEntity> {
                     .age(row.get("age", String.class))
                     .petType(row.get("pet_type", String.class))
                     .userId(row.get("user_id", UUID.class))
+                    .collarId(row.get("collar_id", UUID.class))
                     .build();
 
     private static final String findPetByIdSQL =
@@ -59,5 +62,14 @@ public class PetRepository implements Repository<PetEntity> {
                 .bind("user_id", userId)
                 .map(MAPPING_FUNCTION)
                 .all();
+    }
+
+    public Flux<ServerSentEvent<Object>> listenToGeoData() {
+        return this.findAll()
+                .map(pet -> ServerSentEvent.builder()
+                        .retry(Duration.ofSeconds(5L))
+                        .event(pet.getClass().getName())
+                        .data(pet)
+                        .build());
     }
 }

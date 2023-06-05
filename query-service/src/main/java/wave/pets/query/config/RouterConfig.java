@@ -23,6 +23,7 @@ public class RouterConfig {
                 .andRoute(GET("/pets/{id}"), petHandler::getPetById)
                 .andRoute(GET("/pets/user/{user_id}"), petHandler::getAllPetsByUserId)
                 .andRoute(GET("/collars/"), collarHandler::getAll)
-                .andRoute(GET("/collars/{id}"), collarHandler::getCollarById);
+                .andRoute(GET("/collars/{id}"), collarHandler::getCollarById)
+                .andRoute(GET("/pets/all/"), petHandler::getAllStream);
     }
 }
