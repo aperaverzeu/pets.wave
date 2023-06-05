@@ -17,11 +17,11 @@ public class CollarRepository implements Repository<CollarEntity> {
     private final DatabaseClient databaseClient;
 
     private static final String createCollarSQL =
-            "INSERT INTO public.\"collar\" (id, model, petId) VALUES (:id, :model, :petId)";
+            "INSERT INTO public.\"collar\" (id, model, pet_id) VALUES (:id, :model, :pet_id)";
 
     private static final String updateCollarSQL =
             "UPDATE public.\"collar\" " +
-                    "SET id = :id, model = :model, petId = :petId, height = :height, " +
+                    "SET id = :id, model = :model, pet_id = :pet_id " +
                     "WHERE id = :id";
 
     @Override
@@ -29,7 +29,7 @@ public class CollarRepository implements Repository<CollarEntity> {
         return databaseClient.sql(createCollarSQL)
                 .bind("id", Objects.requireNonNull(collarEntity.getId()))
                 .bind("model", collarEntity.getModel())
-                .bind("petId", Objects.requireNonNull(collarEntity.getPetId()))
+                .bind("pet_id", Objects.requireNonNull(collarEntity.getPetId()))
                 .fetch()
                 .first()
                 .map(r -> (UUID) r.get("id"));
@@ -40,7 +40,7 @@ public class CollarRepository implements Repository<CollarEntity> {
         return databaseClient.sql(updateCollarSQL)
                 .bind("id", Objects.requireNonNull(collarEntity.getId()))
                 .bind("model", collarEntity.getModel())
-                .bind("petId", Objects.requireNonNull(collarEntity.getPetId()))
+                .bind("pet_id", Objects.requireNonNull(collarEntity.getPetId()))
                 .fetch()
                 .rowsUpdated();
     }

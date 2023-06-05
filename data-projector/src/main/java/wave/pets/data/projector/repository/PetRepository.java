@@ -16,13 +16,13 @@ public class PetRepository implements Repository<PetEntity> {
     private final DatabaseClient databaseClient;
 
     private static final String createUserSQL =
-            "INSERT INTO public.\"pet\" (id, name, weight, height, age, petType, userId) " +
-                    "VALUES (:id, :name, :weight, :height, :age, :petType, :userId)";
+            "INSERT INTO public.\"pet\" (id, name, weight, height, age, pet_type, user_id) " +
+                    "VALUES (:id, :name, :weight, :height, :age, :pet_type, :user_id)";
 
     private static final String updateUserSQL =
             "UPDATE public.\"pet\" " +
                     "SET id = :id, name = :name, weight = :weight, height = :height, " +
-                    "age = :age, petType = :petType, userId = :userId " +
+                    "age = :age, pet_type = :pet_type, user_id = :user_id " +
                     "WHERE id = :id";
 
     @Override
@@ -33,8 +33,8 @@ public class PetRepository implements Repository<PetEntity> {
                 .bind("weight", petEntity.getWeight())
                 .bind("height", petEntity.getHeight())
                 .bind("age", petEntity.getAge())
-                .bind("petType", petEntity.getPetType())
-                .bind("userId", petEntity.getUserId())
+                .bind("pet_type", petEntity.getPetType())
+                .bind("user_id", petEntity.getUserId())
                 .fetch()
                 .first()
                 .map(r -> (UUID) r.get("id"));
@@ -48,8 +48,8 @@ public class PetRepository implements Repository<PetEntity> {
                 .bind("weight", petEntity.getWeight())
                 .bind("height", petEntity.getHeight())
                 .bind("age", petEntity.getAge())
-                .bind("petType", petEntity.getPetType())
-                .bind("userId", petEntity.getUserId())
+                .bind("pet_type", petEntity.getPetType())
+                .bind("user_id", petEntity.getUserId())
                 .fetch()
                 .rowsUpdated();
     }
