@@ -19,8 +19,7 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 public class PetHandler {
     private final PetRepository petRepository;
 
-    @SuppressWarnings("unused parameter")
-    public Mono<ServerResponse> getAll(ServerRequest request) {
+    public Mono<ServerResponse> getAll(@SuppressWarnings("unused parameter") ServerRequest request) {
         return ok()
                 .contentType(APPLICATION_JSON)
                 .body(petRepository.findAll(), PetEntity.class)
