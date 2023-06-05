@@ -37,7 +37,6 @@
     </dependencyManagement>
 
     <modules>
-        <module>data-producer</module>
         <module>data-projector</module>
         <module>data-publisher</module>
         <module>gateway</module>
