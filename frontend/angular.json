@@ -10,7 +10,14 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "path": "src/app/components",
           "style": "scss"
+        },
+        "@schematics/angular:service": {
+          "path": "src/app/services"
+        },
+        "@schematics/angular:interface": {
+          "path": "src/app/models"
         }
       },
       "root": "",
@@ -33,6 +40,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeng/resources/themes/tailwind-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -96,6 +105,8 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/primeng/resources/themes/tailwind-light/theme.css",
+              "node_modules/primeng/resources/primeng.min.css",
               "src/styles.scss"
             ],
             "scripts": []
