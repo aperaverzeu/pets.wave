@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.0</version>
+        <version>3.0.6</version>
     </parent>
 
     <properties>
@@ -21,7 +21,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.cloud.version>2022.0.1</spring.cloud.version>
-        <lombok.version>1.18.26</lombok.version>
+        <lombok.version>1.18.28</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -37,7 +37,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>auth-service</module>
+<!--        <module>auth-service</module>-->
         <module>data-projector</module>
         <module>data-publisher</module>
         <module>gateway</module>
