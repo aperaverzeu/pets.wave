@@ -19,6 +19,7 @@ public class RouterConfig {
                                                  CollarHandler collarHandler) {
         return route(GET("/users/"), userHandler::getAll)
                 .andRoute(GET("/users/{id}"), userHandler::getUserById)
+                .andRoute(GET("/users/username/{username}"), userHandler::getUserByUsername)
                 .andRoute(GET("/pets/"), petHandler::getAll)
                 .andRoute(GET("/pets/{id}"), petHandler::getPetById)
                 .andRoute(GET("/pets/user/{user_id}"), petHandler::getAllPetsByUserId)

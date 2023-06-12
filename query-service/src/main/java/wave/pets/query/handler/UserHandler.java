@@ -32,4 +32,11 @@ public class UserHandler {
                 .body(userRepository.findById(UUID.fromString(request.pathVariable("id"))), UserEntity.class)
                 .switchIfEmpty(notFound().build());
     }
+
+    public Mono<ServerResponse> getUserByUsername(ServerRequest request) {
+        return ok()
+                .contentType(APPLICATION_JSON)
+                .body(userRepository.findByUsername(request.pathVariable("username")), UserEntity.class)
+                .switchIfEmpty(notFound().build());
+    }
 }

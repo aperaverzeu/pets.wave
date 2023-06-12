@@ -29,6 +29,9 @@ public class UserRepository implements Repository<UserEntity> {
     private static final String findUserByIdSQL =
             "SELECT * FROM public.\"user\" WHERE id = :id";
 
+    private static final String findUserByUsernameSQL =
+            "SELECT * FROM public.\"user\" WHERE username = :username";
+
     private static final String findAllUsersSQL =
             "SELECT * FROM public.\"user\"";
 
@@ -36,6 +39,13 @@ public class UserRepository implements Repository<UserEntity> {
     public Mono<UserEntity> findById(UUID id) {
         return databaseClient.sql(findUserByIdSQL)
                 .bind("id", id)
+                .map(MAPPING_FUNCTION)
+                .one();
+    }
+
+    public Mono<UserEntity> findByUsername(String username) {
+        return databaseClient.sql(findUserByUsernameSQL)
+                .bind("username", username)
                 .map(MAPPING_FUNCTION)
                 .one();
     }
