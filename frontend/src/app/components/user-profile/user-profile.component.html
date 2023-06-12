@@ -1,13 +1,18 @@
 <div class="flex flex-col justify-center items-center space-y-10">
-  <div class="flex flex-col justify-center items-center space-y-10 p-10 bg-gradient-to-tr from-yellow-50 from-10% to-red-100 to-90% drop-shadow-xl rounded-lg">
-    <p-image id="avatar-image" src="https://mdbcdn.b-cdn.net/img/new/avatars/5.webp" width="120px" height="120px" alt="avatar"></p-image>
+  <div
+    class="flex flex-col justify-center items-center space-y-10 p-10 bg-gradient-to-tr from-yellow-50 from-10% to-red-100 to-90% drop-shadow-xl rounded-lg">
+    <p-image id="avatar-image" src="https://mdbcdn.b-cdn.net/img/new/avatars/5.webp" width="120px" height="120px"
+             alt="avatar"></p-image>
     <div class="flex flex-col justify-start items-start space-y-4 w-full">
-      <p class="pl-10 p-4 border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"> {{user?.name}} </p>
-      <p class="pl-10 p-4 border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"> {{user?.username}} </p>
+      <p
+        class="pl-10 p-4 border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"> {{user?.name}} </p>
+      <p
+        class="pl-10 p-4 border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"> {{user?.username}} </p>
     </div>
 
-    <div class="mt-20">
-      <a href="/pet-profile"><p-button styleClass="p-button-info" label="Мои питомцы"/></a>
+    <div class="flex flex-col justify-center items-center space-y-4 mt-20">
+      <p-button styleClass="p-button-info" label="Мои питомцы" (click)="onclick($event)"/>
+      <p-button styleClass="p-button-info" label="Настройки" (click)="toSettings($event)"/>
     </div>
   </div>
 </div>

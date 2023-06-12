@@ -6,7 +6,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./pet-profile.component.scss']
 })
 export class PetProfileComponent {
-  name: string | undefined = "Маджонг";
+  name: string | null = localStorage.getItem("actual-pet-name");
   weight: string | undefined = "12 кг";
   height: string | undefined = "35 см";
   age: string | undefined = "3 мес";

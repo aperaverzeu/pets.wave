@@ -6,8 +6,12 @@ import {CollarRegistrationComponent} from "./components/collar-registration/coll
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 import {PetProfileComponent} from "./components/pet-profile/pet-profile.component";
 import {PetsProfileComponent} from "./components/pets-profile/pets-profile.component";
+import {UserSettingsComponent} from "./components/user-settings/user-settings.component";
+import {UserLoginComponent} from "./components/user-login/user-login.component";
 
 const routes: Routes = [
+  {path: 'user-settings', component: UserSettingsComponent},
+  {path: 'user-login', component: UserLoginComponent},
   {path: 'user-profile', component: UserProfileComponent},
   {path: 'pets-profile', component: PetsProfileComponent},
   {path: 'pet-profile', component: PetProfileComponent},

@@ -6,12 +6,12 @@
     <label htmlFor="name">Ваше имя</label>
   </span>
   <span class="p-float-label">
-    <input pInputText id="username" [(ngModel)]="username" required minlength="5"/>
+    <input pInputText id="username" aria-required="true" [(ngModel)]="username" required minlength="5"/>
     <label htmlFor="username">Имя учетной записи</label>
   </span>
   <span class="p-float-label">
     <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false"></p-password>
     <label htmlFor="password">Пароль</label>
   </span>
-  <p-button styleClass="p-button-info" label="Submit"></p-button>
+  <p-button styleClass="p-button-info" label="Регистрация" (click)="onclick($event)"></p-button>
 </div>

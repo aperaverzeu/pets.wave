@@ -18,8 +18,9 @@
     <label htmlFor="name">Возраст (мес.)</label>
   </span>
   <span class="p-float-label">
-    <p-dropdown [options]="petTypes" [(ngModel)]="petType" placeholder="Тип животного" optionLabel="petType"></p-dropdown>
+    <p-dropdown [options]="petTypes" [(ngModel)]="petType" placeholder="Тип животного"
+                optionLabel="petType"></p-dropdown>
     <label htmlFor="name">Тип животного</label>
   </span>
-  <p-button styleClass="p-button-info" label="Submit"></p-button>
+  <p-button styleClass="p-button-info" label="Добавить" (click)="onclick($event)"></p-button>
 </div>

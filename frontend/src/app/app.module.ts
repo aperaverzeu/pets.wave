@@ -15,12 +15,16 @@ import {PetRegistrationComponent} from './components/pet-registration/pet-regist
 import {UserRegistrationComponent} from './components/user-registration/user-registration.component';
 import {DropdownModule} from "primeng/dropdown";
 import {InputNumberModule} from "primeng/inputnumber";
-import { CollarRegistrationComponent } from './components/collar-registration/collar-registration.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import {CollarRegistrationComponent} from './components/collar-registration/collar-registration.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 import {AvatarModule} from "primeng/avatar";
 import {ImageModule} from "primeng/image";
-import { PetProfileComponent } from './components/pet-profile/pet-profile.component';
-import { PetsProfileComponent } from './components/pets-profile/pets-profile.component';
+import {PetProfileComponent} from './components/pet-profile/pet-profile.component';
+import {PetsProfileComponent} from './components/pets-profile/pets-profile.component';
+import {UserSettingsComponent} from './components/user-settings/user-settings.component';
+import {UserLoginComponent} from './components/user-login/user-login.component';
+import {ToastModule} from "primeng/toast";
+import {MessageService} from "primeng/api";
 
 
 @NgModule({
@@ -31,7 +35,9 @@ import { PetsProfileComponent } from './components/pets-profile/pets-profile.com
     CollarRegistrationComponent,
     UserProfileComponent,
     PetProfileComponent,
-    PetsProfileComponent
+    PetsProfileComponent,
+    UserSettingsComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +53,13 @@ import { PetsProfileComponent } from './components/pets-profile/pets-profile.com
     DropdownModule,
     InputNumberModule,
     AvatarModule,
-    ImageModule
+    ImageModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [
+    // GlobalErrorHandler, {provide: ErrorHandler, useClass: GlobalErrorHandler},
+    MessageService, {provide: MessageService, useClass: MessageService}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -5,3 +5,11 @@
 :host ::ng-deep .p-inputtext {
   width: 16rem;
 }
+
+:host ::ng-deep .custom-toast .p-toast {
+  max-width: calc(100vw - 40px);
+}
+
+body {
+  min-width: 350px;
+}

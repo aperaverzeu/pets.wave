@@ -2,8 +2,8 @@
   <h2 class="text-2xl font-bold"> Добавить ошейник </h2>
 
   <span class="p-float-label">
-    <input pInputText id="name"  [(ngModel)]="collarId"/>
+    <input pInputText id="name" placeholder="{{collarId}}" [(ngModel)]="collarId"/>
     <label htmlFor="name">ID ошейника</label>
   </span>
-  <p-button styleClass="p-button-info" label="Submit"></p-button>
+  <p-button styleClass="p-button-info" label="Добавить" (click)="onclick($event)"></p-button>
 </div>

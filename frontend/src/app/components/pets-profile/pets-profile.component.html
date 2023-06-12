@@ -1,26 +1,20 @@
 <div class="flex flex-col justify-center items-center space-y-14">
-  <div class="flex flex-col justify-center items-center space-y-10 p-10 bg-gradient-to-tr from-yellow-50 from-10% to-red-100 to-90% drop-shadow-xl rounded-lg">
-    <div class="flex flex-row-reverse justify-end space-w-10 mx-auto">
-      <p-image id="avatar-image-1" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Welchcorgipembroke.JPG"
-               alt="avatar"></p-image>
-      <p class="p-4 pr-10 font-bold"> {{name}} </p>
-    </div>
+  <ng-template ngFor let-pet [ngForOf]="pets">
+    <div
+      class="flex flex-col justify-center items-center space-y-10 p-10 bg-gradient-to-tr from-yellow-50 from-10% to-red-100 to-90% drop-shadow-xl rounded-lg">
+      <div class="flex flex-row-reverse justify-end space-w-10 mx-auto">
+        <p-image src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Welchcorgipembroke.JPG"
+                 alt="avatar"></p-image>
+        <p class="p-4 pr-10 font-bold"> {{pet.name}} </p>
+      </div>
 
-    <div class="flex flex-col justify-center items-center">
-      <p-button styleClass="p-button-info" label="Подробнее"></p-button>
+      <div class="flex flex-col justify-center items-center">
+        <p-button styleClass="p-button-info" label="Подробнее" (click)="toPetProfile(pet.petId, pet.name)"></p-button>
+      </div>
     </div>
-  </div>
+  </ng-template>
 
-
-  <div class="flex flex-col justify-center items-center space-y-10 p-10 bg-gradient-to-tr from-yellow-50 from-10% to-red-100 to-90% drop-shadow-xl rounded-lg">
-    <div class="flex flex-row-reverse justify-end space-w-10 mx-auto">
-      <p-image id="avatar-image-2" src="https://upload.wikimedia.org/wikipedia/commons/f/fb/Welchcorgipembroke.JPG"
-               alt="avatar"></p-image>
-      <p class="p-4 pr-10 font-bold"> {{name}} </p>
-    </div>
-
-    <div class="flex flex-col justify-center items-center">
-      <p-button styleClass="p-button-info" label="Подробнее"></p-button>
-    </div>
+  <div class="flex flex-col justify-center items-center">
+    <p-button styleClass="p-button-info" label="Добавить питомца" (click)="toPetRegistration()"></p-button>
   </div>
 </div>
