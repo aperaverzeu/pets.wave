@@ -8,9 +8,8 @@ describe('PetGeoMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PetGeoMapComponent ]
-    })
-    .compileComponents();
+      declarations: [PetGeoMapComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(PetGeoMapComponent);
     component = fixture.componentInstance;

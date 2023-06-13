@@ -1,3 +1,3 @@
 export interface PetType {
-  petType: string
+  petType: string;
 }

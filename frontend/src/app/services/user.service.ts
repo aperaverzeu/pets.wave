@@ -1,23 +1,21 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable, retry} from "rxjs";
-import {User} from "../models/user";
-import {UserRequest} from "../models/user-request";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, retry } from 'rxjs';
+import { User } from '../models/user';
+import { UserRequest } from '../models/user-request';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   getUser(userId: string | null): Observable<User> {
-    return this.http.get<User>('/api/query-service/users/' + userId)
-      .pipe(retry(2));
+    return this.http.get<User>(`/api/query-service/users/${userId}`).pipe(retry(2));
   }
 
   getUserByUsername(username: string | null) {
-    return this.http.get<User>('/api/query-service/users/username/' + username);
+    return this.http.get<User>(`/api/query-service/users/username/${username}`);
   }
 
   getUsers(): Observable<User[]> {

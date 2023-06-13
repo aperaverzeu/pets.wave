@@ -8,9 +8,8 @@ describe('CollarRegistrationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CollarRegistrationComponent ]
-    })
-    .compileComponents();
+      declarations: [CollarRegistrationComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CollarRegistrationComponent);
     component = fixture.componentInstance;
