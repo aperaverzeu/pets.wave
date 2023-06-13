@@ -28,6 +28,7 @@ import {MessageService} from "primeng/api";
 import {PetGeoComponent} from './components/pet-geo/pet-geo.component';
 import {PetHealthComponent} from './components/pet-health/pet-health.component';
 import { PetSettingsComponent } from './components/pet-settings/pet-settings.component';
+import { PetGeoMapComponent } from './components/pet-geo-map/pet-geo-map.component';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { PetSettingsComponent } from './components/pet-settings/pet-settings.com
     UserLoginComponent,
     PetGeoComponent,
     PetHealthComponent,
-    PetSettingsComponent
+    PetSettingsComponent,
+    PetGeoMapComponent
   ],
   imports: [
     BrowserModule,

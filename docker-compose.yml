@@ -82,7 +82,7 @@ services:
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=Pa55word
-      - POSTGRES_DB=petswave
+      - POSTGRES_DB=petswave 
 
 volumes:
   consul:
