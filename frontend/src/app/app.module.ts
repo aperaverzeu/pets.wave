@@ -25,6 +25,9 @@ import {UserSettingsComponent} from './components/user-settings/user-settings.co
 import {UserLoginComponent} from './components/user-login/user-login.component';
 import {ToastModule} from "primeng/toast";
 import {MessageService} from "primeng/api";
+import {PetGeoComponent} from './components/pet-geo/pet-geo.component';
+import {PetHealthComponent} from './components/pet-health/pet-health.component';
+import { PetSettingsComponent } from './components/pet-settings/pet-settings.component';
 
 
 @NgModule({
@@ -37,7 +40,10 @@ import {MessageService} from "primeng/api";
     PetProfileComponent,
     PetsProfileComponent,
     UserSettingsComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    PetGeoComponent,
+    PetHealthComponent,
+    PetSettingsComponent
   ],
   imports: [
     BrowserModule,

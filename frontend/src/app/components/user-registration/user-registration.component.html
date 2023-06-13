@@ -10,7 +10,7 @@
     <label htmlFor="username">Имя учетной записи</label>
   </span>
   <span class="p-float-label">
-    <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false"></p-password>
+    <p-password [(ngModel)]="password" [toggleMask]="true" [feedback]="false" required minlength="8"></p-password>
     <label htmlFor="password">Пароль</label>
   </span>
   <p-button styleClass="p-button-info" label="Регистрация" (click)="onclick($event)"></p-button>

@@ -16,6 +16,14 @@ export class UserService {
       .pipe(retry(2));
   }
 
+  getUserByUsername(username: string | null) {
+    return this.http.get<User>('/api/query-service/users/username/' + username);
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/api/query-service/users/');
+  }
+
   createUser(user: UserRequest): Observable<UserRequest> {
     return this.http.post<UserRequest>('/api/data-to-kafka-service/user/create', user);
   }

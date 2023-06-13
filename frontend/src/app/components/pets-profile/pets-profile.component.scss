@@ -1,5 +1,16 @@
 :host ::ng-deep img {
-  border-radius: 1rem;
-  width: 6rem;
-  height: 6rem;
+  border-radius: 3rem;
+  width: 3rem;
+  height: 3rem;
 }
+
+//:host ::ng-deep .p-button-info {
+//  color: black;
+//  background-color: #EFF6FF;
+//  font-weight: 700;
+//  width: 100%;
+//  border-radius: 0.5rem;
+//  border-width: 0;
+//  border-color: #EFF6FF;
+//  filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+//}

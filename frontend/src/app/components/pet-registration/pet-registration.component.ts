@@ -8,8 +8,7 @@ import {MessageService} from "primeng/api";
 @Component({
   selector: 'app-pet-registration',
   templateUrl: './pet-registration.component.html',
-  styleUrls: ['./pet-registration.component.scss'],
-  providers: [MessageService]
+  styleUrls: ['./pet-registration.component.scss']
 })
 export class PetRegistrationComponent implements OnInit {
   name: string | undefined;
@@ -20,6 +19,8 @@ export class PetRegistrationComponent implements OnInit {
   petTypes: PetType[] = [];
 
   ngOnInit(): void {
+    this.toLogin();
+
     this.petTypes = [
       {petType: "Собака"},
       {petType: "Кошка"}
@@ -41,7 +42,7 @@ export class PetRegistrationComponent implements OnInit {
       return;
     }
 
-    if (parseInt(this.weight) < 0 || parseInt(this.weight) > 100) {
+    if (parseInt(this.weight) < 1 || parseInt(this.weight) > 100) {
       this.validate('Укажите реальный вес питомца');
       return;
     }
@@ -51,18 +52,22 @@ export class PetRegistrationComponent implements OnInit {
       return;
     }
 
-    if (parseInt(this.age) < 0 || parseInt(this.age) > 310) {
+    if (parseInt(this.age) < 1 || parseInt(this.age) > 310) {
       this.validate('Укажите реальный возраст питомца');
       return;
     }
 
-
-    let userId = localStorage.getItem("actual-user-id");
+    let userId = sessionStorage.getItem("actual-user-id");
     let petId = uuid();
-    localStorage.setItem("actual-pet-id", petId);
+    sessionStorage.setItem("actual-pet-id", petId);
     let collarId = uuid();
-    localStorage.setItem("actual-collar-id", collarId);
+    sessionStorage.setItem("actual-collar-id", collarId);
 
+    if (this.petType.petType == "Собака") {
+      this.petType.petType = "DOG";
+    } else if (this.petType.petType == "Кошка") {
+      this.petType.petType = "CAT";
+    }
 
     this.petService
       .createPet({
@@ -76,10 +81,17 @@ export class PetRegistrationComponent implements OnInit {
         collarId: collarId
       })
       .subscribe();
+    this.messageService.add({severity: 'success', summary: 'Успешно', detail: 'Питомец добавлен'});
     this.router.navigate(['/collar-registration']).finally();
   }
 
   validate(detail: string) {
     this.messageService.add({severity: 'error', summary: 'Ошибка', detail: detail});
+  }
+
+  toLogin() {
+    if (sessionStorage.getItem("actual-user-id") === null) {
+      this.router.navigate(["/user-login"]).finally();
+    }
   }
 }

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {User} from "../../models/user";
 import {Router} from "@angular/router";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'app-user-profile',
@@ -12,13 +13,14 @@ export class UserProfileComponent implements OnInit {
   user: User | undefined;
 
   constructor(private userService: UserService,
+              private messageService: MessageService,
               private router: Router) {
   }
 
   ngOnInit(): void {
     this.toLogin();
 
-    this.userService.getUser(localStorage.getItem("actual-user-id"))
+    this.userService.getUser(sessionStorage.getItem("actual-user-id"))
       .subscribe((data: User) => this.user = {
           id: data.id,
           name: data.name,
@@ -37,7 +39,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   toLogin() {
-    if (localStorage.getItem("actual-user-id") == null) {
+    if (sessionStorage.getItem("actual-user-id") === null) {
       this.router.navigate(["/user-login"]).finally();
     }
   }

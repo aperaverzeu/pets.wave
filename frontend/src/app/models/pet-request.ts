@@ -1,5 +1,5 @@
-export interface Pet {
-  id?: string;
+export interface PetRequest {
+  petId?: string;
   name?: string;
   weight?: string;
   height?: string;

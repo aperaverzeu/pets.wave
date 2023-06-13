@@ -10,6 +10,44 @@
   max-width: calc(100vw - 40px);
 }
 
+:host ::ng-deep .custom-input {
+  max-width: 6rem;
+  font-size: 1.5rem;
+  line-height: 3rem;
+  color: black;
+  text-align: center;
+}
+
+:host ::ng-deep .custom-input-stress {
+  max-width: 13rem;
+  font-size: 1.5rem;
+  line-height: 3rem;
+  color: black;
+  text-align: center;
+}
+
+:host ::ng-deep .custom-input-name {
+  max-width: 8rem;
+  color: black;
+  text-align: center;
+}
+
+:host ::ng-deep .custom-input-username {
+  max-width: 12rem;
+  min-height: 4rem;
+  font-weight: 800;
+  color: black;
+  text-align: center;
+}
+
+:host ::ng-deep .custom-input-pet {
+  max-width: 12rem;
+  min-height: 3rem;
+  font-weight: 800;
+  color: black;
+  text-align: center;
+}
+
 body {
   min-width: 350px;
 }
