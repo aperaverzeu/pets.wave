@@ -32,7 +32,7 @@ export class PetRegistrationComponent implements OnInit {
               private router: Router) {
   }
 
-  onclick($event: MouseEvent) {
+  onclick() {
     if ((this.name === "" || this.name === null || this.name === undefined) ||
       (this.weight === "" || this.weight === null || this.weight === undefined) ||
       (this.height === "" || this.height === null || this.height === undefined) ||
@@ -57,10 +57,10 @@ export class PetRegistrationComponent implements OnInit {
       return;
     }
 
-    let userId = sessionStorage.getItem("actual-user-id");
-    let petId = uuid();
+    const userId = sessionStorage.getItem("actual-user-id");
+    const petId = uuid();
     sessionStorage.setItem("actual-pet-id", petId);
-    let collarId = uuid();
+    const collarId = uuid();
     sessionStorage.setItem("actual-collar-id", collarId);
 
     if (this.petType.petType == "Собака") {

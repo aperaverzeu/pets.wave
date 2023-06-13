@@ -65,7 +65,6 @@ import { PetGeoMapComponent } from './components/pet-geo-map/pet-geo-map.compone
     ToastModule
   ],
   providers: [
-    // GlobalErrorHandler, {provide: ErrorHandler, useClass: GlobalErrorHandler},
     MessageService, {provide: MessageService, useClass: MessageService}
   ],
   bootstrap: [AppComponent]

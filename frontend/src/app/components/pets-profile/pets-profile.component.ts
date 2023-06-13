@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./pets-profile.component.scss']
 })
 export class PetsProfileComponent implements OnInit {
-  name: string = "Маджонг"
+  name = "Маджонг"
   pets: Pet[];
 
   constructor(private petService: PetService,
@@ -36,8 +36,8 @@ export class PetsProfileComponent implements OnInit {
   }
 
   toPetProfile(pet: Pet) {
-    sessionStorage.setItem("actual-pet-id", pet.id!);
-    sessionStorage.setItem("actual-pet-name", pet.name!);
+    sessionStorage.setItem("actual-pet-id", pet.id != null ? pet.id : "");
+    sessionStorage.setItem("actual-pet-name", pet.name != null ? pet.name : "");
     this.router.navigate(["/pet-profile"]).finally();
   }
 

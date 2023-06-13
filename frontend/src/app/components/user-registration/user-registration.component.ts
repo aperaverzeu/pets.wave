@@ -31,7 +31,7 @@ export class UserRegistrationComponent implements OnInit {
     }, 2000);
   }
 
-  onclick($event: MouseEvent) {
+  onclick() {
     this.usernameIsOccupied = false;
 
     if ((this.name === "" || this.username === "" || this.password === "") ||
@@ -68,7 +68,7 @@ export class UserRegistrationComponent implements OnInit {
       return;
     }
 
-    let userId = uuid();
+    const userId = uuid();
     sessionStorage.setItem("actual-user-id", userId);
     sessionStorage.setItem("is-authenticated", "false");
 

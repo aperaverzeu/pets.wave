@@ -21,7 +21,7 @@ export class UserLoginComponent implements OnInit {
     this.clearSessionStorage();
   }
 
-  onclick($event: MouseEvent) {
+  onclick() {
     if ((this.username === "" || this.username === null || this.username === undefined) ||
       (this.password === "" || this.password === null || this.password === undefined)) {
       this.validate('Все поля должны быть заполнены');

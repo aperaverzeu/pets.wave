@@ -30,11 +30,11 @@ export class UserProfileComponent implements OnInit {
       );
   }
 
-  onclick($event: MouseEvent) {
+  onclick() {
     this.router.navigate(["/pets-profile"]).finally();
   }
 
-  toSettings($event: MouseEvent) {
+  toSettings() {
     this.router.navigate(["/user-settings"]).finally();
   }
 

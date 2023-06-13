@@ -24,7 +24,7 @@ export class PetProfileComponent implements OnInit {
     this.petService.getPet(this.petId).subscribe({
       next: (pet) => {
         this.pet = pet;
-        sessionStorage.setItem("actual-collar-id", pet.collarId!);
+        sessionStorage.setItem("actual-collar-id", pet.collarId != null ? pet.collarId : "");
         this.pet.weight += " кг";
         this.pet.height += " см";
         this.pet.age += " мес";

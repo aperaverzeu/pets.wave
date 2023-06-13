@@ -23,7 +23,7 @@ export class CollarRegistrationComponent implements OnInit {
     this.toLogin();
   }
 
-  onclick($event: MouseEvent) {
+  onclick() {
     if (this.collarId === "" || this.collarId === null || this.collarId === undefined) {
       this.validate('Все поля должны быть заполнены');
       return;
