@@ -1,44 +1,78 @@
-import { AfterViewInit, Component } from '@angular/core';
-import * as L from 'leaflet';
+import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { Feature, Map, View } from 'ol';
+import olms from 'ol-mapbox-style';
+import { fromLonLat, transform } from 'ol/proj';
+import { Point } from 'ol/geom';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import { Subscription } from 'rxjs';
+import { CollarService } from '../../services/collar.service';
 
 @Component({
   selector: 'app-pet-geo-map',
   templateUrl: './pet-geo-map.component.html',
   styleUrls: ['./pet-geo-map.component.scss'],
 })
-export class PetGeoMapComponent implements AfterViewInit {
-  private map: L.Map | undefined;
+export class PetGeoMapComponent implements AfterViewInit, OnDestroy {
+  map: Map | undefined;
 
-  private initMap(): void {
-    // this.map = L.map('map', {
-    //   center: [39.8282, -98.5795],
-    //   zoom: 3
-    // });
-    //
-    // const tiles = L.tileLayer();
-    //
-    // tiles.addTo(this.map);
+  @ViewChild('map')
+  mapContainer: ElementRef<HTMLElement>;
 
-    this.map = L.map('map', { attributionControl: false }).setView([0, 0], 1);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 3,
-      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(this.map);
+  private sub: Subscription | undefined;
 
-    this.map.flyTo([39.8282, -98.5795], 13);
-
-    const icon = L.icon({
-      iconUrl: 'assets/images/marker-icon.png',
-      shadowUrl: 'assets/images/marker-shadow.png',
-      popupAnchor: [13, 0],
-    });
-
-    const marker = L.marker([39.8282, -98.5795], { icon }).bindPopup('Angular Leaflet');
-    marker.addTo(this.map);
+  constructor(private collarService: CollarService) {
+    this.mapContainer = {} as ElementRef;
   }
 
-  ngAfterViewInit(): void {
-    this.initMap();
+  ngAfterViewInit() {
+    const initialState = {
+      lng: 27.59502,
+      lat: 53.91176,
+      zoom: 17,
+    };
+
+    const myAPIKey = '234bec3141fd4752a1074a210d4889ca';
+    const mapStyle = 'https://maps.geoapify.com/v1/styles/osm-bright/style.json';
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    olms(this.mapContainer.nativeElement, `${mapStyle}?apiKey=${myAPIKey}`).then((map: Map) => {
+      map.setView(
+        new View({
+          center: transform([initialState.lng, initialState.lat], 'EPSG:4326', 'EPSG:3857'),
+          zoom: initialState.zoom,
+        }),
+      );
+      this.map = map;
+    });
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    this.sub = this.collarService.getPetGeo().subscribe((data) => {
+      const marker = new VectorLayer({
+        source: new VectorSource({
+          features: [new Feature({ geometry: new Point(fromLonLat([data.lng, data.lat])) })],
+        }),
+      });
+      if (!this.map) {
+        console.log('error map');
+      } else {
+        this.map.addLayer(marker);
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-implied-eval
+      setTimeout(() => {
+        this.map?.removeLayer(marker);
+      }, 300);
+    });
+  }
+
+  ngOnDestroy() {
+    console.log('sub is over');
+    if (this.sub) {
+      this.sub.unsubscribe();
+    }
   }
 }

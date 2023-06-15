@@ -16,13 +16,13 @@
         <span class="p-float-label">
           <input id="bpm"
                  class="custom-input border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
-                 type="text" pInputText [disabled]="true" [(ngModel)]="bpm"/>
+                 type="text" pInputText [disabled]="true" [(ngModel)]="health.bpm"/>
           <label htmlFor="bpm">Пульс</label>
         </span>
         <span class="p-float-label">
           <input id="spo2"
                  class="custom-input border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
-                 type="text" pInputText [disabled]="true" [(ngModel)]="spo2"/>
+                 type="text" pInputText [disabled]="true" [(ngModel)]="health.spo2"/>
           <label htmlFor="spo2">SpO2</label>
         </span>
       </div>
@@ -31,7 +31,7 @@
           <input id="stressLevel"
                  class="custom-input-stress border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
                  type="text" pInputText [disabled]="true"
-                 [(ngModel)]="stressLevel"/>
+                 [(ngModel)]="health.stressLevel"/>
           <label htmlFor="stressLevel">Уровень стресса</label>
         </span>
       </div>

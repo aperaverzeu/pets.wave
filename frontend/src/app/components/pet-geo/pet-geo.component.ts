@@ -7,10 +7,10 @@ import { Location } from '@angular/common';
   styleUrls: ['./pet-geo.component.scss'],
 })
 export class PetGeoComponent {
-  name: string;
+  name: string | null;
 
   constructor(private location: Location) {
-    this.name = 'Маджонг';
+    this.name = sessionStorage.getItem('actual-pet-name');
   }
 
   back() {

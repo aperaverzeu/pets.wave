@@ -45,7 +45,7 @@
             "styles": [
               "node_modules/primeng/resources/themes/tailwind-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/leaflet/dist/leaflet.css",
+              "node_modules/ol/ol.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -116,7 +116,6 @@
             "styles": [
               "node_modules/primeng/resources/themes/tailwind-light/theme.css",
               "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -128,7 +127,8 @@
             "lintFilePatterns": [
               "src/**/*.ts",
               "src/**/*.html"
-            ]
+            ],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

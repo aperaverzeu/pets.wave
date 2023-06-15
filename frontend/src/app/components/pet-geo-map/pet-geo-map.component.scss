@@ -1,21 +1,9 @@
-.map-container {
-  position: absolute;
-  top: 8rem;
-  left: 0;
-  right: 0;
-  bottom: 14rem;
-  margin: 30px;
+:host ::ng-deep .ol-viewport {
+  border-radius: 1rem;
 }
 
-.map-frame {
-  border-radius: 2rem;
-  //height: 100%;
-}
-
-#map {
+.map {
+  width: 200px;
   height: 400px;
-  max-height: 400px;
-  width: 100%;
-  max-width: 600px;
 }
 

@@ -1,5 +1,6 @@
 package wave.pets.query.handler;
 
+import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -24,40 +25,6 @@ public class CollarHandler {
     private final CollarRepository collarRepository;
     private final Random rand = new Random();
 
-    private final List<HealthData> healthData = Arrays.asList(
-            new HealthData("90", "97", "Низкий"),
-            new HealthData("93", "97", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("94", "98", "Низкий"),
-            new HealthData("105", "96", "Низкий"),
-            new HealthData("90", "97", "Низкий"),
-            new HealthData("90", "97", "Низкий"),
-            new HealthData("90", "97", "Низкий"),
-            new HealthData("90", "97", "Низкий"),
-            new HealthData("90", "97", "Низкий"),
-            new HealthData("110", "94", "Средний"),
-            new HealthData("114", "97", "Средний"),
-            new HealthData("117", "98", "Средний"),
-            new HealthData("113", "96", "Средний"),
-            new HealthData("97", "95", "Средний"),
-            new HealthData("130", "95", "Высокий"),
-            new HealthData("140", "98", "Высокий"),
-            new HealthData("165", "99", "Высокий")
-    );
-
-    private final List<GeoData> geoData = Arrays.asList(
-            new GeoData(27.59502, 53.91176),
-            new GeoData(27.59506, 53.91170),
-            new GeoData(27.59512, 53.91166),
-            new GeoData(27.59516, 53.91160)
-    );
-
     public Mono<ServerResponse> getAll(@SuppressWarnings("unused parameter") ServerRequest request) {
         return ok()
                 .contentType(APPLICATION_JSON)
@@ -79,7 +46,7 @@ public class CollarHandler {
                 .switchIfEmpty(badRequest().build());
     }
 
-    public Mono<ServerResponse> produceGeoData(ServerRequest request) {
+    public Mono<ServerResponse> produceGeoData(@SuppressWarnings("unused parameter") ServerRequest request) {
         return ok()
                 .contentType(APPLICATION_JSON)
                 .body(getRandomGeoData(), GeoData.class)
@@ -87,14 +54,30 @@ public class CollarHandler {
     }
 
     private Mono<HealthData> getRandomHealthData() {
-        return Mono.just(healthData.get(rand.nextInt(healthData.size())));
+        return Mono.just(HealthData.builder()
+                .bpm(Integer.toString(65 + rand.nextInt(90)))
+                .spo2(Integer.toString(95 + rand.nextInt(4)))
+                .stressLevel(stressLevelData.get(rand.nextInt(stressLevelData.size())))
+                .build());
     }
 
     private Mono<GeoData> getRandomGeoData() {
-        return Mono.just(geoData.get(rand.nextInt(geoData.size())));
+        return Mono.just(GeoData.builder()
+                .lng(rand.doubles(27.595, 27.596).limit(1).findFirst().orElseThrow())
+                .lat(rand.doubles(53.9117, 53.9118).limit(1).findFirst().orElseThrow())
+                .build());
     }
 
+    private static final List<String> stressLevelData = Arrays.asList(
+            "Низкий", "Низкий", "Низкий", "Низкий", "Низкий",
+            "Средний", "Средний", "Средний", "Средний", "Средний",
+            "Высокий", "Высокий",
+            "Низкий", "Низкий", "Низкий", "Низкий", "Низкий"
+    );
+
+    @Builder
     record HealthData(String bpm, String spo2, String stressLevel) {}
 
+    @Builder
     record GeoData(double lng, double lat) {}
 }

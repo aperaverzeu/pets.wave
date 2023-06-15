@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-center items-center space-y-14">
   <div
-    class="flex flex-col justify-center items-center space-y-20 p-16 bg-gradient-to-l from-grey-200 from-10% to-blue-300 to-90% drop-shadow-xl rounded-lg">
-    <div class="flex flex-row justify-center items-center space-x-8 w-full mb-20">
+    class="flex flex-col justify-center items-center space-y-10 p-16 bg-gradient-to-l from-grey-200 from-10% to-blue-300 to-90% drop-shadow-xl rounded-lg">
+    <div class="flex flex-row justify-center items-center space-x-8 w-full">
       <input id="name"
              class="custom-input-name border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
              type="text" pInputText [disabled]="true" [(ngModel)]="name"/>
@@ -11,7 +11,7 @@
       </p-image>
     </div>
 
-    <div class="pb-32 pt-32">
+    <div class="">
       <app-pet-geo-map></app-pet-geo-map>
     </div>
 
