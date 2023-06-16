@@ -14,6 +14,14 @@ export class PetService {
     return this.http.post<PetRequest>('/api/data-to-kafka-service/pet/create', pet);
   }
 
+  updatePet(pet: PetRequest): Observable<PetRequest> {
+    return this.http.put<PetRequest>('/api/data-to-kafka-service/pet/update', pet);
+  }
+
+  deletePet(pet: PetRequest): Observable<PetRequest> {
+    return this.http.delete<PetRequest>('/api/data-to-kafka-service/pet/delete', { body: pet });
+  }
+
   getPet(id: string | null) {
     return this.http.get<Pet>(`/api/query-service/pets/${id}`);
   }

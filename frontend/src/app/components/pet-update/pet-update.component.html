@@ -1,0 +1,25 @@
+<div class="flex flex-col justify-center items-center space-y-10">
+  <h2 class="text-2xl text-center px-6 font-bold"> Измените информацию о вашем питомце</h2>
+
+  <span class="p-float-label">
+    <input pInputText id="name" [(ngModel)]="name"/>
+    <label htmlFor="name">Имя вашего питомца</label>
+  </span>
+  <span class="p-float-label">
+    <p-inputNumber inputId="integeronly" id="weight" [(ngModel)]="weight"/>
+    <label htmlFor="number-input">Вес (кг.)</label>
+  </span>
+  <span class="p-float-label">
+    <p-inputNumber inputId="integeronly" id="height" [(ngModel)]="height"/>
+    <label htmlFor="name">Рост (см.)</label>
+  </span>
+  <span class="p-float-label">
+    <p-inputNumber inputId="integeronly" id="age" [(ngModel)]="age"/>
+    <label htmlFor="name">Возраст (мес.)</label>
+  </span>
+  <span class="p-float-label">
+    <input pInputText id="collarId" placeholder="{{collarId}}" [(ngModel)]="collarId"/>
+    <label htmlFor="name">Номер ошейника</label>
+  </span>
+  <p-button styleClass="p-button-info" label="Изменить" (click)="onclick()"></p-button>
+</div>

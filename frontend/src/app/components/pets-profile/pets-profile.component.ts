@@ -32,7 +32,7 @@ export class PetsProfileComponent implements OnInit {
           console.log('complete');
         },
       });
-    }, 500);
+    }, 300);
   }
 
   toPetProfile(pet: Pet) {

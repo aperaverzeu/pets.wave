@@ -11,6 +11,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { PetGeoComponent } from './components/pet-geo/pet-geo.component';
 import { PetHealthComponent } from './components/pet-health/pet-health.component';
 import { PetSettingsComponent } from './components/pet-settings/pet-settings.component';
+import { PetUpdateComponent } from './components/pet-update/pet-update.component';
 
 const routes: Routes = [
   { path: 'user-settings', component: UserSettingsComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'pets-profile', component: PetsProfileComponent },
   { path: 'pet-settings', component: PetSettingsComponent },
+  { path: 'pet-update', component: PetUpdateComponent },
   { path: 'pet-geo', component: PetGeoComponent },
   { path: 'pet-health', component: PetHealthComponent },
   { path: 'pet-profile', component: PetProfileComponent },

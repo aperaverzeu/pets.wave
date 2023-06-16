@@ -14,7 +14,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { AvatarModule } from 'primeng/avatar';
 import { ImageModule } from 'primeng/image';
 import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PetRegistrationComponent } from './components/pet-registration/pet-registration.component';
 import { UserRegistrationComponent } from './components/user-registration/user-registration.component';
 import { CollarRegistrationComponent } from './components/collar-registration/collar-registration.component';
@@ -29,6 +30,7 @@ import { PetGeoComponent } from './components/pet-geo/pet-geo.component';
 import { PetHealthComponent } from './components/pet-health/pet-health.component';
 import { PetSettingsComponent } from './components/pet-settings/pet-settings.component';
 import { PetGeoMapComponent } from './components/pet-geo-map/pet-geo-map.component';
+import { PetUpdateComponent } from './components/pet-update/pet-update.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { PetGeoMapComponent } from './components/pet-geo-map/pet-geo-map.compone
     PetHealthComponent,
     PetSettingsComponent,
     PetGeoMapComponent,
+    PetUpdateComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,8 +65,14 @@ import { PetGeoMapComponent } from './components/pet-geo-map/pet-geo-map.compone
     AvatarModule,
     ImageModule,
     ToastModule,
+    ConfirmDialogModule,
   ],
-  providers: [MessageService, { provide: MessageService, useClass: MessageService }],
+  providers: [
+    MessageService,
+    { provide: MessageService, useClass: MessageService },
+    ConfirmationService,
+    { provide: ConfirmationService, useClass: ConfirmationService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

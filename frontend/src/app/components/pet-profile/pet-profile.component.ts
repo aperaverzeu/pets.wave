@@ -26,9 +26,9 @@ export class PetProfileComponent implements OnInit {
       next: (pet) => {
         this.pet = pet;
         sessionStorage.setItem('actual-collar-id', pet.collarId != null ? pet.collarId : '');
-        this.pet.weight += ' кг';
-        this.pet.height += ' см';
-        this.pet.age += ' мес';
+        // this.pet.weight += ' кг';
+        // this.pet.height += ' см';
+        // this.pet.age += ' мес';
       },
       error: () => {
         console.log('error');
@@ -48,6 +48,7 @@ export class PetProfileComponent implements OnInit {
   }
 
   toPetSettings() {
+    sessionStorage.setItem('actual-pet', JSON.stringify(this.pet));
     this.router.navigate(['/pet-settings']).finally();
   }
 }

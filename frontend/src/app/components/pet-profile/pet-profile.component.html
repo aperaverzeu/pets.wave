@@ -14,19 +14,19 @@
     <div class="flex flex-col justify-center items-center space-y-4 w-full">
       <input id="weight"
              class="custom-input-pet text-black border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
-             type="text" pInputText [disabled]="true" [ngModel]="pet.weight"/>
+             type="text" pInputText [disabled]="true" value="{{pet.weight}} кг" ngModel="pet.weight" />
       <input id="height"
              class="custom-input-pet border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
-             type="text" pInputText [disabled]="true" [ngModel]="pet.height"/>
+             type="text" pInputText [disabled]="true" value="{{pet.height}} см" ngModel="pet.height"/>
       <input id="age"
              class="custom-input-pet border-0 border-blue-50 bg-blue-50 rounded-lg drop-shadow-xl w-full font-bold"
-             type="text" pInputText [disabled]="true" [ngModel]="pet.age"/>
+             type="text" pInputText [disabled]="true" value="{{pet.age}} мес" ngModel="pet.age"/>
     </div>
 
     <div class="flex flex-col justify-center items-center space-y-4">
       <p-button styleClass="p-button-info" label="Геолокация" (click)="toPetGeo()"></p-button>
       <p-button styleClass="p-button-info" label="Здоровье" (click)="toPetHealth()"></p-button>
-      <p-button styleClass="p-button-info" label="Изменить" (click)="toPetSettings()"></p-button>
+      <p-button styleClass="p-button-info" label="Параметры" (click)="toPetSettings()"></p-button>
     </div>
   </div>
 </div>
