@@ -21,8 +21,11 @@ public class UserRepository implements Repository<UserEntity> {
 
     private static final String updateUserSQL =
             "UPDATE public.\"user\" " +
-                    "SET id = :id, name = :name, username = :username, password = :password " +
+                    "SET name = :name, username = :username, password = :password " +
                     "WHERE id = :id";
+
+    private static final String deleteUserSQL =
+            "DELETE FROM public.\"user\" WHERE id = :id";
 
     @Override
     public Mono<UUID> save(UserEntity userEntity) {
@@ -39,16 +42,19 @@ public class UserRepository implements Repository<UserEntity> {
     @Override
     public Mono<Long> update(UserEntity userEntity) {
         return databaseClient.sql(updateUserSQL)
-                .bind("id", Objects.requireNonNull(userEntity.getId()))
                 .bind("name", userEntity.getName())
                 .bind("username", userEntity.getUsername())
                 .bind("password", userEntity.getPassword())
+                .bind("id", Objects.requireNonNull(userEntity.getId()))
                 .fetch()
                 .rowsUpdated();
     }
 
     @Override
     public Mono<Long> delete(UserEntity userEntity) {
-        throw new UnsupportedOperationException();
+        return databaseClient.sql(deleteUserSQL)
+                .bind("id", userEntity.getId())
+                .fetch()
+                .rowsUpdated();
     }
 }
