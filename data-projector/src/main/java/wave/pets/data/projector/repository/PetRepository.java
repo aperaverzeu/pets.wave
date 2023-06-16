@@ -15,19 +15,22 @@ import java.util.UUID;
 public class PetRepository implements Repository<PetEntity> {
     private final DatabaseClient databaseClient;
 
-    private static final String createUserSQL =
+    private static final String createPetSQL =
             "INSERT INTO public.\"pet\" (id, name, weight, height, age, pet_type, user_id, collar_id) " +
                     "VALUES (:id, :name, :weight, :height, :age, :pet_type, :user_id, :collar_id)";
 
-    private static final String updateUserSQL =
+    private static final String updatePetSQL =
             "UPDATE public.\"pet\" " +
-                    "SET id = :id, name = :name, weight = :weight, height = :height, " +
+                    "SET name = :name, weight = :weight, height = :height, " +
                     "age = :age, pet_type = :pet_type, user_id = :user_id, collar_id = :collar_id " +
                     "WHERE id = :id";
 
+    private static final String deletePetSQL =
+            "DELETE FROM public.\"pet\" WHERE id = :id AND user_id = :user_id";
+
     @Override
     public Mono<UUID> save(PetEntity petEntity) {
-        return databaseClient.sql(createUserSQL)
+        return databaseClient.sql(createPetSQL)
                 .bind("id", Objects.requireNonNull(petEntity.getId()))
                 .bind("name", petEntity.getName())
                 .bind("weight", petEntity.getWeight())
@@ -43,8 +46,7 @@ public class PetRepository implements Repository<PetEntity> {
 
     @Override
     public Mono<Long> update(PetEntity petEntity) {
-        return databaseClient.sql(updateUserSQL)
-                .bind("id", Objects.requireNonNull(petEntity.getId()))
+        return databaseClient.sql(updatePetSQL)
                 .bind("name", petEntity.getName())
                 .bind("weight", petEntity.getWeight())
                 .bind("height", petEntity.getHeight())
@@ -52,12 +54,17 @@ public class PetRepository implements Repository<PetEntity> {
                 .bind("pet_type", petEntity.getPetType())
                 .bind("user_id", petEntity.getUserId())
                 .bind("collar_id", petEntity.getCollarId())
+                .bind("id", Objects.requireNonNull(petEntity.getId()))
                 .fetch()
                 .rowsUpdated();
     }
 
     @Override
     public Mono<Long> delete(PetEntity petEntity) {
-        throw new UnsupportedOperationException();
+        return databaseClient.sql(deletePetSQL)
+                .bind("id", petEntity.getId())
+                .bind("user_id", petEntity.getUserId())
+                .fetch()
+                .rowsUpdated();
     }
 }
