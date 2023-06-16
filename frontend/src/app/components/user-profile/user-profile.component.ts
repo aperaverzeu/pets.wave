@@ -24,6 +24,7 @@ export class UserProfileComponent implements OnInit {
     this.userService.getUser(sessionStorage.getItem('actual-user-id')).subscribe({
       next: (data: User) => {
         this.setUser(data);
+        sessionStorage.setItem('actual-user', JSON.stringify(data));
       },
       error: () => {},
       complete: () => {},

@@ -31,6 +31,7 @@ import { PetHealthComponent } from './components/pet-health/pet-health.component
 import { PetSettingsComponent } from './components/pet-settings/pet-settings.component';
 import { PetGeoMapComponent } from './components/pet-geo-map/pet-geo-map.component';
 import { PetUpdateComponent } from './components/pet-update/pet-update.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PetUpdateComponent } from './components/pet-update/pet-update.component
     PetSettingsComponent,
     PetGeoMapComponent,
     PetUpdateComponent,
+    UserUpdateComponent,
   ],
   imports: [
     BrowserModule,

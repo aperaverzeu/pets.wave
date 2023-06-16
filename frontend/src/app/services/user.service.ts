@@ -25,4 +25,12 @@ export class UserService {
   createUser(user: UserRequest): Observable<UserRequest> {
     return this.http.post<UserRequest>('/api/data-to-kafka-service/user/create', user);
   }
+
+  updateUser(user: UserRequest): Observable<UserRequest> {
+    return this.http.put('/api/data-to-kafka-service/user/update', user);
+  }
+
+  deleteUser(user: UserRequest): Observable<UserRequest> {
+    return this.http.delete('/api/data-to-kafka-service/user/delete', { body: user });
+  }
 }

@@ -12,8 +12,10 @@ import { PetGeoComponent } from './components/pet-geo/pet-geo.component';
 import { PetHealthComponent } from './components/pet-health/pet-health.component';
 import { PetSettingsComponent } from './components/pet-settings/pet-settings.component';
 import { PetUpdateComponent } from './components/pet-update/pet-update.component';
+import { UserUpdateComponent } from './components/user-update/user-update.component';
 
 const routes: Routes = [
+  { path: 'user-update', component: UserUpdateComponent },
   { path: 'user-settings', component: UserSettingsComponent },
   { path: 'user-login', component: UserLoginComponent },
   { path: 'user-profile', component: UserProfileComponent },
