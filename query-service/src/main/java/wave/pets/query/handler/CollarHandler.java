@@ -63,8 +63,8 @@ public class CollarHandler {
 
     private Mono<GeoData> getRandomGeoData() {
         return Mono.just(GeoData.builder()
-                .lng(rand.doubles(27.595, 27.596).limit(1).findFirst().orElseThrow())
-                .lat(rand.doubles(53.9117, 53.9118).limit(1).findFirst().orElseThrow())
+                .lng(rand.doubles(27.5953, 27.5956).limit(1).findFirst().orElseThrow())
+                .lat(rand.doubles(53.91171, 53.91176).limit(1).findFirst().orElseThrow())
                 .build());
     }
 
