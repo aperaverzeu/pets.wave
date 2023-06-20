@@ -1,4 +1,4 @@
-FROM node:16.8.1 as build
+FROM node:16.18.1 as build
 
 WORKDIR /usr/local/app
 
