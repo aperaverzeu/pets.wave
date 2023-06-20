@@ -75,7 +75,6 @@ services:
 
   gateway:
     container_name: "gateway"
-#    image: "asphedaemon/petswave-gateway:1.0"
     build:
       context: ./gateway
     networks:
@@ -86,10 +85,11 @@ services:
       - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
     links:
       - discovery
+    depends_on:
+      - discovery
 
   discovery:
     container_name: "discovery"
-#    image: "asphedaemon/petswave-discovery:1.0"
     build:
       context: ./discovery-service
     networks:
@@ -109,6 +109,13 @@ services:
       - "8089:8089"
     environment:
       - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+      - spring.r2dbc.url=r2dbc:postgresql://postgres:5432/petswave
+      - spring.r2dbc.hostname=postgres
+      - spring.r2dbc.port=5432
+    depends_on:
+      - discovery
+      - gateway
+      - postgres
 
   data-publisher:
     container_name: "data-publisher"
@@ -120,6 +127,13 @@ services:
       - "8087:8087"
     environment:
       - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+      - spring.kafka.bootstrap-servers=http://kafka:9092
+      - spring.cassandra.contact-points=cassandra
+    depends_on:
+      - discovery
+      - gateway
+      - cassandra
+      - kafka
 
   data-projector:
     container_name: "data-projector"
@@ -131,6 +145,15 @@ services:
       - "8088:8088"
     environment:
       - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+      - spring.kafka.bootstrap-servers=http://kafka:9092
+      - spring.r2dbc.url=r2dbc:postgresql://postgres:5432/petswave
+      - spring.r2dbc.hostname=postgres
+      - spring.r2dbc.port=5432
+    depends_on:
+      - discovery
+      - gateway
+      - postgres
+      - kafka
 
   frontend:
     container_name: "frontend"
@@ -139,7 +162,16 @@ services:
     networks:
       - global
     ports:
-      - "4200:80"
+      - "4200:4200"
+    depends_on:
+      - discovery
+      - query-service
+      - data-projector
+      - data-publisher
+      - gateway
+      - postgres
+      - cassandra
+      - kafka
 
 volumes:
   consul:

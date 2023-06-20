@@ -14,9 +14,18 @@ public class CassandraConfig extends AbstractReactiveCassandraConfiguration {
     @Value("${spring.cassandra.keyspace-name}")
     private String keyspaceName;
 
+    @Value("${spring.cassandra.contact-points}")
+    private String contactPoints;
+
     @Override
     @NonNull
     protected String getKeyspaceName() {
         return Objects.requireNonNullElse(keyspaceName, "petswave");
+    }
+
+    @Override
+    @NonNull
+    protected String getContactPoints() {
+        return Objects.requireNonNullElse(contactPoints, "localhost");
     }
 }
