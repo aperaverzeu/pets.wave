@@ -1,6 +1,6 @@
 #!/bin/sh
 
-mvn clean package -d skipTests
+mvn clean package -DskipTests
 
 sleep 2
 
