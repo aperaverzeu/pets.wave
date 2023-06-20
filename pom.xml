@@ -42,6 +42,7 @@
         <module>gateway</module>
         <module>query-service</module>
         <module>utilities</module>
+        <module>discovery-service</module>
     </modules>
 
 </project>
