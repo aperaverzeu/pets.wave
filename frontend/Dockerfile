@@ -10,10 +10,12 @@ COPY . .
 
 RUN yarn run build
 
+RUN ls -la dist
+
 FROM nginx:latest
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=build /usr/src/app/dist/frontend /usr/share/nginx/html
+COPY --from=build /dist/ /usr/share/nginx/html
 
 EXPOSE 80
