@@ -1,23 +1,12 @@
 FROM node:16.18.1 as build
 
-WORKDIR /usr/src/app
+RUN mkdir /project
+WORKDIR /project
 
-COPY package.json yarn.lock ./
+RUN npm install -g @angular/cli@16
 
-RUN yarn install
+COPY package.json yarn.json ./
+RUN yarn install --frozen-lockfile
 
 COPY . .
-
-RUN yarn run build
-
-RUN ls -la dist
-
-FROM nginx:latest
-
-WORKDIR /usr/src/app
-
-COPY nginx.conf /etc/nginx/nginx.conf
-
-COPY --from=build /dist/ /usr/share/nginx/html
-
-EXPOSE 80
+CMD ["ng", "serve", "--host", "0.0.0.0"]
