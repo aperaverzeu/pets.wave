@@ -77,6 +77,8 @@ services:
     restart: on-failure
     volumes:
       - postgres_db:/var/lib/postgresql/data
+    networks:
+      - global
     ports:
       - "5433:5432"
     environment:
