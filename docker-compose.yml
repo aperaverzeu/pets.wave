@@ -1,21 +1,6 @@
 version: "3.7"
 
 services:
-  consul:
-    container_name: "consul"
-    image: "consul:1.14.4"
-    restart: on-failure
-    volumes:
-      - ./consul/server.json:/consul/config/server.json:ro
-    networks:
-      - global
-    ports:
-      - "8500:8500"
-      - "8600:8600/tcp"
-      - "8600:8600/udp"
-    command:
-      - "agent"
-
   kafka:
     container_name: "kafka"
     image: "bitnami/kafka:3.4.0"
@@ -69,6 +54,8 @@ services:
       - "9042:9042"
     environment:
       - CASSANDRA_CLUSTER_NAME=petswave
+      - HEAP_NEWSIZE=128M
+      - MAX_HEAP_SIZE=1024M
 
 
   postgres:
@@ -85,6 +72,65 @@ services:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=Pa55word
       - POSTGRES_DB=petswave
+
+  gateway:
+    container_name: "gateway"
+#    image: "asphedaemon/petswave-gateway:1.0"
+    build:
+      context: ./gateway
+    networks:
+      - global
+    ports:
+      - "8080:8080"
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+    links:
+      - discovery
+
+  discovery:
+    container_name: "discovery"
+#    image: "asphedaemon/petswave-discovery:1.0"
+    build:
+      context: ./discovery-service
+    networks:
+      - global
+    ports:
+      - "8083:8083"
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+
+  query-service:
+    container_name: "query-service"
+    build:
+      context: ./query-service
+    networks:
+      - global
+    ports:
+      - "8089:8089"
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+
+  data-publisher:
+    container_name: "data-publisher"
+    build:
+      context: ./data-publisher
+    networks:
+      - global
+    ports:
+      - "8087:8087"
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
+
+  data-projector:
+    container_name: "data-projector"
+    build:
+      context: ./data-projector
+    networks:
+      - global
+    ports:
+      - "8088:8088"
+    environment:
+      - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
 
 volumes:
   consul:

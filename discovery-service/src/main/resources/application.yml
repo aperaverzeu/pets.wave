@@ -10,3 +10,10 @@ eureka:
     fetchRegistry: false
     service-url:
       defaultZone: http://localhost:8083/eureka
+#  instance:
+#    hostname: discovery
+#    prefer-ip-address: true
+#    lease-expiration-duration-in-seconds: 30
+#    lease-renewal-interval-in-seconds: 30
+#  server:
+#    enable-self-preservation: false
