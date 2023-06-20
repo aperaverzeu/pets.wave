@@ -5,7 +5,7 @@ WORKDIR /project
 
 RUN npm install -g @angular/cli@16
 
-COPY package.json yarn.json ./
+COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
