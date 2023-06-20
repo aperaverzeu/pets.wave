@@ -132,6 +132,15 @@ services:
     environment:
       - eureka.client.service-url.defaultZone=http://discovery:8083/eureka
 
+  frontend:
+    container_name: "frontend"
+    build:
+      context: ./frontend
+    networks:
+      - global
+    ports:
+      - "4200:80"
+
 volumes:
   consul:
     driver: local
