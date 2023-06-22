@@ -25,8 +25,8 @@ public class RouterConfig {
                 .andRoute(GET("/pets/user/{user_id}"), petHandler::getAllPetsByUserId)
                 .andRoute(GET("/collars/"), collarHandler::getAll)
                 .andRoute(GET("/collars/{id}"), collarHandler::getCollarById)
-                .andRoute(GET("/collars/health/"), collarHandler::produceHealthData)
-                .andRoute(GET("/collars/geo/"), collarHandler::produceGeoData)
+                .andRoute(GET("/collars/health/{collar_id}"), collarHandler::produceHealthData)
+                .andRoute(GET("/collars/geo/{collar_id}"), collarHandler::produceGeoData)
                 .andRoute(GET("/pets/all/"), petHandler::getAllStream);
     }
 }
