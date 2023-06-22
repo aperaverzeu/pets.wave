@@ -44,4 +44,8 @@ export class PetsProfileComponent implements OnInit {
   toPetRegistration() {
     this.router.navigate(['/pet-registration']).finally();
   }
+
+  toUserProfile() {
+    this.router.navigate(['/user-profile']).finally();
+  }
 }

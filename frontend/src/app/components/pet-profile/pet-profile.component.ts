@@ -51,4 +51,8 @@ export class PetProfileComponent implements OnInit {
     sessionStorage.setItem('actual-pet', JSON.stringify(this.pet));
     this.router.navigate(['/pet-settings']).finally();
   }
+
+  toAllPets() {
+    this.router.navigate(['/pets-profile']).finally();
+  }
 }

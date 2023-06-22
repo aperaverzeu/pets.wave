@@ -19,6 +19,7 @@
     "@angular/platform-browser": "16.0.6",
     "@angular/platform-browser-dynamic": "16.0.6",
     "@angular/router": "16.0.6",
+    "bootstrap-icons": "^1.10.5",
     "ol": "^7.4.0",
     "ol-mapbox-style": "^10.6.0",
     "primeng": "16.0.0",
