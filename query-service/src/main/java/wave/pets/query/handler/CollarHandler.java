@@ -2,7 +2,6 @@ package wave.pets.query.handler;
 
 import lombok.Builder;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -22,7 +21,6 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 
 @Component
 @RequiredArgsConstructor
-@Slf4j
 public class CollarHandler {
     private final CollarRepository collarRepository;
     private final Random rand = new Random();
@@ -42,7 +40,7 @@ public class CollarHandler {
     }
 
     public Mono<ServerResponse> produceHealthData(ServerRequest request) {
-        log.info(request.pathVariable("collar_id"));
+        System.out.println(request.pathVariable("collar_id"));
         return ok()
                 .contentType(APPLICATION_JSON)
                 .body(getRandomHealthData(), HealthData.class)
@@ -50,7 +48,7 @@ public class CollarHandler {
     }
 
     public Mono<ServerResponse> produceGeoData(ServerRequest request) {
-        log.info(request.pathVariable("collar_id"));
+        System.out.println(request.pathVariable("collar_id"));
         return ok()
                 .contentType(APPLICATION_JSON)
                 .body(getRandomGeoData(), GeoData.class)
